@@ -36,3 +36,79 @@
     transform: rotate(360deg);
   }
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 60px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 60px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-board {
+  margin-right: 20px;
+}
+
+.game-info {
+  margin-top: 60px;
+}
+
+.game-info > div {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.btn-x {
+  background-color: red;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  text-align: center;
+  width: 60px;
+}
+
+.btn-o {
+  background-color: blue;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  text-align: center;
+  width: 60px;
+}

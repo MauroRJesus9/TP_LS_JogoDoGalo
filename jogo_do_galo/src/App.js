@@ -6,6 +6,7 @@ function App() {
   const [jogador1, setJogador1] = useState("");
   const [jogador2, setJogador2] = useState("");
   const [gamestart, setGameStart] = useState(false);
+  const tabuleiros = [];
 
   const handleJogador1MudarNome = (event) => {
     setJogador1(event.target.value);
@@ -22,7 +23,13 @@ function App() {
     setGameStart(true);
     // do something with the player names, like pass them to a game component
   };
-
+  if (gamestart) {
+    for (let i = 1; i <= 9; i++) {
+      tabuleiros.push(
+        <Tabuleiro key={i} id={i} jogador1={jogador1} jogador2={jogador2} />
+      );
+    }
+  }
   return (
     <>
       {!gamestart ? (
@@ -52,7 +59,7 @@ function App() {
         </>
       ) : (
         <>
-          <Tabuleiro jogador1={jogador1} jogador2={jogador2} />
+          <div className="grid-container">{tabuleiros}</div>
         </>
       )}
     </>

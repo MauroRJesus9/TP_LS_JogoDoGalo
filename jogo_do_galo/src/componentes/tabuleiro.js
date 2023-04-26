@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
 function Square(props) {
+  let buttonStyle =
+    props.value === "X" ? "btn-x" : props.value === "O" ? "btn-o" : "square";
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={buttonStyle} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -90,9 +92,14 @@ function Tabuleiro(props) {
     );
   });
 
-  const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? jogador1 : jogador2}`;
+  let status;
+  if (winner) {
+    status = `Winner: ${winner}`;
+  } else if (history.length === 10) {
+    status = "Draw!";
+  } else {
+    status = `Next player: ${xIsNext ? jogador1 : jogador2}`;
+  }
 
   return (
     <div className="game">
