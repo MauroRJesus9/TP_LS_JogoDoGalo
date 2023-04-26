@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
 function Square(props) {
-  let buttonStyle =
-    props.value === "X" ? "btn-x" : props.value === "O" ? "btn-o" : "square";
+  /* let buttonStyle =
+    props.value === "X"
+      ? "btn-x"
+      : props.value === "O"
+      ? "square o"
+      : "square"; */
   return (
-    <button className={buttonStyle} onClick={props.onClick}>
+    <button className={"square"} onClick={props.onClick}>
       {props.value}
     </button>
   );
