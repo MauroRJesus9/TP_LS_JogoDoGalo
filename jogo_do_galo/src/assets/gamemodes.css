@@ -1,0 +1,140 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.header h2{
+    margin-top: -15px;
+    color: rgb(39, 39, 39);
+}
+
+.gamemodes {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#tabuleiro {
+    border: 5px solid #000000;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -15px;
+    margin-left: 50px;
+    justify-content: flex-start; /* Adicionado */
+    flex-direction: column;
+    width: 400px;
+  }
+  
+.btn {
+    margin: 10px;
+    width: 450px;
+    background-color: black;
+    border-color: black;
+    position: relative;
+    padding: 20px;
+}
+  
+.btn:hover {
+    background-color: #1a1a1a;
+    border: 2px solid;
+    border-radius: 3px;
+    border-color: #1a1a1a;
+    color: white;
+}
+  
+.btn-content {
+    display: flex;
+    align-items: center;
+}
+  
+.btn-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+  
+.btn-text {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    text-align: left;
+    width: calc(100% - 60px); /* largura da imagem (50px) + margem (10px) */
+    font-size: 0; /* remove espaços entre os elementos filhos */
+}
+  
+.btn-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+  
+.btn-subtitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(231, 231, 231);
+}
+
+.form-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#formulario {
+    margin-left: 45px;
+}
+  
+.form-container label {
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    width: 200px; /* largura fixa para cada label */
+}
+  
+.form-container input[type=text] {
+    display: inline-block;
+    height: 20px;
+    width: 170px;
+    font-size: 20px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 2px solid #000000;
+}
+
+.form-container select {
+    height: 30px;
+    vertical-align: right;
+    border: 2px solid #000000;
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    width: 185px;
+  }
+
+  #btn-jogar {
+    margin-top: 30px;
+    display: block;
+    height: 50px;
+    width: 450px;
+  }
+
+  #btn-jogar .btn-text {
+    text-align: center;
+    margin-top: -15px;
+  }
+  
+*:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+#btn-jogar:disabled:hover {
+    background-color:#000000;
+    border-color: #000000;
+}

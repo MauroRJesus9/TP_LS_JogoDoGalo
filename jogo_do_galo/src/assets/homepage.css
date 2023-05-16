@@ -1,0 +1,60 @@
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: space-evenly;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -50px;
+}
+
+.titulo h1 {
+	color: black;
+	font-family: 'Museo Sans', Avenir, 'Helvetica Neue', Helvetica, sans-serif;
+	font-weight: 900;
+	font-size: 5vmin;
+	text-align: center;
+	font-size: 15vmin;
+	line-height: 0.9;
+	text-shadow: 0.05em 0.05em 0.1em #000;
+	text-shadow: 0 0.025em 0.05em rgba(0,0,0,0.75), 0 0.05em 0.1em rgba(0,0,0,0.5);
+}
+
+.titulo h1:first-child {
+    margin-bottom: 10px; 
+}
+
+.titulo h1:last-child {
+    margin-top: 5px; 
+    margin-bottom: -90px;
+}
+
+.btn {
+    cursor:pointer;
+    width: 400px;
+    height: 100px;
+    background-color: #FF5100;
+    border: 2px solid;
+    border-color: #FF5100;
+    border-radius: 3px; 
+    color: #fff;
+    padding: 12px 24px;
+    text-align: center;
+    font: 700 1em 'OpenSans', sans-serif;
+    font-size:5vmin;
+    margin: 4px 2px;
+    transition: 0.3s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+  
+.btn:hover {
+    background-color: #592C82;
+    border: 2px solid;
+    border-radius: 3px;
+    border-color: #592C82;
+    color: #fff;
+}
