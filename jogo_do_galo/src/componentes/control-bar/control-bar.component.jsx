@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function ControlBar(){
+const ControlBar = ({ handleSair }) => {
+  return (
+    <>
+      <button onClick={handleSair}>SAIR</button>
+    </>
+  );
+};
 
-    return <div>Ola</div>;
-}
+export default ControlBar;

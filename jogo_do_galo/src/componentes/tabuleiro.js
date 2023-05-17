@@ -86,7 +86,7 @@ function Tabuleiro(props) {
 
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares, jogador1, jogador2);
-
+  
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
     return (

@@ -23,6 +23,10 @@ function App() {
     setGameStart(true);
   };
 
+  const handleSair = () => {
+    setGameStart(false);
+  };
+
   if (gamestart) {
     for (let i = 1; i <= 9; i++) {
       tabuleiros.push(
@@ -45,7 +49,7 @@ function App() {
         </>
       ) : (
         <>
-          <ControlBar />
+          <ControlBar handleSair={handleSair}/>
           <div className="grid-container">{tabuleiros}</div>
         </>
       )}
