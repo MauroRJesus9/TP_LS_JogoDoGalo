@@ -39,6 +39,10 @@
     border-color: black;
     position: relative;
     padding: 20px;
+    border: 2px solid;
+    border-radius: 3px; 
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
   
 .btn:hover {
@@ -70,6 +74,7 @@
 }
   
 .btn-title {
+    color: white;
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 5px;
@@ -78,7 +83,7 @@
 .btn-subtitle {
     font-size: 20px;
     font-weight: 700;
-    color: rgb(231, 231, 231);
+    color: rgb(194, 194, 194);
 }
 
 .form-container {

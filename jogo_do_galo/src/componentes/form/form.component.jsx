@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../form/form.css"
+import "../form/form.css" 
 import tabIMG from "../../imgs/tab.jpeg";
 import pcICO from "../../imgs/pc.png";
 import handICO from "../../imgs/handshake.png";

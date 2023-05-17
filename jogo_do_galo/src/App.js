@@ -3,7 +3,6 @@ import Tabuleiro from "./componentes/tabuleiro";
 import ControlBar from "./componentes/control-bar/control-bar.component";
 import FormComponent from "./componentes/form/form.component";
 import "./App.css";
-import "./assets/homepage.css";
 
 function App() {
   const [gamestart, setGameStart] = useState(false);
