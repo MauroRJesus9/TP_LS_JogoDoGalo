@@ -108,8 +108,8 @@ function App() {
                     <br />
                     <label id="temporizador">
                       Temporizador
-                      <select name="temporizador" id="temporizador-select" disabled={!formAtivo}>
-                        <option value="" selected>Desligado</option>
+                      <select defaultValue="" name="temporizador" id="temporizador-select" disabled={!formAtivo}>
+                        <option value="">Desligado</option>
                         <option value="">30 Segundos</option>
                         <option value="">1 Minuto</option>
                         <option value="">2 Minutos</option>
@@ -117,8 +117,8 @@ function App() {
                     </label>
                     <label id="mini-tabuleiro">
                       Tabuleiro
-                      <select name="temporizador" id="tabuleiro-select" disabled={!formAtivo}>
-                        <option value="" selected>Livre</option>
+                      <select defaultValue="" name="temporizador" id="tabuleiro-select" disabled={!formAtivo}>
+                        <option value="">Livre</option>
                         <option value="">Adversário escolhe mini tabuleiro</option>
                       </select>
                     </label>
