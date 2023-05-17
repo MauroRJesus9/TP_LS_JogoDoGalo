@@ -4,13 +4,13 @@ import tabIMG from "../../imgs/tab.jpeg";
 import pcICO from "../../imgs/pc.png";
 import handICO from "../../imgs/handshake.png";
 
-const FormComponent = (/*{
+export default /*const*/function FormComponent(/*{
   handleJogador1MudarNome,
   handleJogador2MudarNome,
   handleSubmit,
   jogador1,
   jogador2,
-}*/props) => {
+}*/props) {
 
   const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2 } = props;
   const [formAtivo, setFormAtivo] = useState(false);
@@ -151,4 +151,4 @@ const FormComponent = (/*{
   );
 };
 
-export default FormComponent;
+//export default FormComponent;
