@@ -107,15 +107,15 @@ export default /*const*/function FormComponent(/*{
                 <label id="temporizador">
                   Temporizador
                   <select
-                    defaultValue=""
+                    defaultValue="0"
                     name="temporizador"
                     id="temporizador-select"
                     disabled={!formAtivo}
                   >
-                    <option value="">Desligado</option>
-                    <option value="">30 Segundos</option>
-                    <option value="">1 Minuto</option>
-                    <option value="">2 Minutos</option>
+                    <option value="0">Desligado</option>
+                    <option value="1">30 Segundos</option>
+                    <option value="2">1 Minuto</option>
+                    <option value="3">2 Minutos</option>
                   </select>
                 </label>
                 <label id="mini-tabuleiro">
