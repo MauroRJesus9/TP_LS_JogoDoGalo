@@ -77,21 +77,7 @@ function App() {
   let timerIdX = undefined;
   let timerIdY = undefined;
   
-  //const [formAtivo, setFormAtivo] = useState(false);
   const [activeTimer, setActiveTimer] = useState(true);
-
-  /*const escolhe2Jogadores = () => {
-    const iJ2 = document.getElementById('inputJogador2'); //isto pode ser melhorado
-    setFormAtivo(true);
-    iJ2.disabled = false;
-  };
-
-  const escolheComputador = () => {
-    const iJ2 = document.getElementById('inputJogador2');
-    iJ2.disabled = true;
-    setFormAtivo(true);
-    setJogador2("");
-  };*/
 
   //
 
