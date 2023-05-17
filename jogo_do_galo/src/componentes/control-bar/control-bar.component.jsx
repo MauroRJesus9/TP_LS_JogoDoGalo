@@ -14,7 +14,7 @@ export default function ControlBar(props){
                 <dt>Jogador O:</dt>
                 <dd id="playerTimer">{timerO}</dd>
             </dl>
-            <button onClick={handleSair}>SAIR</button>
+            <button id="leaveBtn" onClick={handleSair}>SAIR</button>
         </section>
     );
 }
