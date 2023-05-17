@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Tabuleiro from "./componentes/tabuleiro";
+import ControlBar from "./componentes/control-bar.component";
 import "./App.css";
 import "./assets/homepage.css";
 import "./assets/gamemodes.css";
@@ -160,6 +161,7 @@ function App() {
         </>
       ) : (
         <>
+          <ControlBar />
           <div className="grid-container">{tabuleiros}</div>
         </>
       )}
