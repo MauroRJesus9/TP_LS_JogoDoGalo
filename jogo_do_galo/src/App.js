@@ -145,16 +145,14 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          //setGameStart(false);
           handleSair();
         }
 
       }, 1000);
     }else if(isNaN(jogador1.timer)){
       setActiveTimer(3);
-    }/*else if(jogador1Timer !== MAXTIMER){
-      setJogador1Timer(MAXTIMER);
-    }*/
+    }
+
     return () => {
       if(timerIdX){
         clearInterval(timerIdX);
@@ -174,16 +172,14 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          //setGameStart(false);
           handleSair();
         }
 
       }, 1000);
     }else if(isNaN(jogador2.timer)){
       setActiveTimer(3);
-    }/*else if(jogador2Timer !== MAXTIMER){
-      setJogador1Timer(MAXTIMER);
-    }*/
+    }
+
     return () => {
       if(timerIdY){
         clearInterval(timerIdY);
