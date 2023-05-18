@@ -65,10 +65,13 @@ function App() {
     });
   };
 
+  //Resetar os estados todos quando se sai
   const handleSair = () => {
     setGameStart(false);
-    setJogador1("");
-    setJogador2("");
+    setJogador1("", NaN);
+    setJogador2("", NaN);
+    setCurrentPlayer(PLAYER1);
+    setActiveTimer(1);
   };
 
   const handleSubmit = (event) => {
