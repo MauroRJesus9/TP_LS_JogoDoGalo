@@ -142,7 +142,8 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          setGameStart(false);
+          //setGameStart(false);
+          handleSair();
         }
 
       }, 1000);
@@ -170,7 +171,8 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          setGameStart(false);
+          //setGameStart(false);
+          handleSair();
         }
 
       }, 1000);
