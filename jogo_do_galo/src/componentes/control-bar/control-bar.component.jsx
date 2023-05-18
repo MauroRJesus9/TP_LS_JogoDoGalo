@@ -7,11 +7,11 @@ export default function ControlBar(props){
     return (
         <>
             <section id="control-bar">
-                <dl className={activeTimer ? "list-item active" : "list-item"} > {/*concatenar com a cor do jogador*/}
+                <dl className={activeTimer === 1 ? "list-item active" : "list-item"} > {/*concatenar com a cor do jogador*/}
                     <dt>Jogador X:</dt>
                     <dd id="playerTimer">{timerX}</dd>
                 </dl>
-                <dl className={!activeTimer ? "list-item active" : "list-item"}> {/*concatenar com a cor do jogador*/}
+                <dl className={activeTimer === 2 ? "list-item active" : "list-item"}> {/*concatenar com a cor do jogador*/}
                     <dt>Jogador O:</dt>
                     <dd id="playerTimer">{timerO}</dd>
                 </dl>

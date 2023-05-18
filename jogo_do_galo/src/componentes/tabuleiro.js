@@ -123,6 +123,8 @@ export default Tabuleiro;*/
 import React, { useState } from "react";
 
 function Square(props) {
+
+
   /* let buttonStyle =
     props.value === "X"
       ? "btn-x"
