@@ -5,7 +5,7 @@ import pcICO from "../../imgs/pc.png";
 import handICO from "../../imgs/handshake.png";
 
 export default function FormComponent(props) {
-  const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2, handleTemporizador } = props;
+  const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2,handleTemporizador } = props;
   const [formAtivo, setFormAtivo] = useState(false);
 
   const escolhe2Jogadores = () => {
