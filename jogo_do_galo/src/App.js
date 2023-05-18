@@ -66,7 +66,7 @@ import FormComponent from "./componentes/form/form.component";
 import "./App.css";
 
 import { 
-  MAXTIMER,
+  //MAXTIMER,
   PLAYER1,
   PLAYER2
 } from "./constants/constants";
@@ -79,15 +79,13 @@ function App() {
   
   const [activeTimer, setActiveTimer] = useState(true);
 
-  //
-
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
 
   const [jogador1, setJogador1] = useState("");
-  const [jogador1Timer, setJogador1Timer] = useState(MAXTIMER);
+  const [jogador1Timer, setJogador1Timer] = useState("");
 
   const [jogador2, setJogador2] = useState("");
-  const [jogador2Timer, setJogador2Timer] = useState(MAXTIMER);
+  const [jogador2Timer, setJogador2Timer] = useState("");
 
   const [gamestart, setGameStart] = useState(false);
   const tabuleiros = [];
@@ -115,6 +113,24 @@ function App() {
     setGameStart(true);
     // do something with the player names, like pass them to a game component
   };
+
+  //temporizador
+  const handleTemporizador = (event) => {
+    const option = event.target.value;
+    if (option === "timer30") {
+      setJogador1Timer(30);
+      setJogador2Timer(30);
+    } else if (option === "timer1"){
+      setJogador1Timer(60);
+      setJogador2Timer(60);  
+    } else if (option === "timer2"){
+      setJogador1Timer(120);
+      setJogador2Timer(120);  
+    } else {
+      //falta desativar e esconder o timer caso escolham a opcao temporizador desligado
+    }
+  };
+
   if (gamestart) {
     for (let i = 1; i <= 9; i++) {
       tabuleiros.push(
@@ -188,6 +204,7 @@ function App() {
             handleSubmit={handleSubmit}
             jogador1={jogador1}
             jogador2={jogador2}
+            handleTemporizador={handleTemporizador}
           />
         </>
       ) : (

@@ -4,15 +4,8 @@ import tabIMG from "../../imgs/tab.jpeg";
 import pcICO from "../../imgs/pc.png";
 import handICO from "../../imgs/handshake.png";
 
-export default /*const*/function FormComponent(/*{
-  handleJogador1MudarNome,
-  handleJogador2MudarNome,
-  handleSubmit,
-  jogador1,
-  jogador2,
-}*/props) {
-
-  const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2 } = props;
+export default function FormComponent(props) {
+  const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2, handleTemporizador } = props;
   const [formAtivo, setFormAtivo] = useState(false);
 
   const escolhe2Jogadores = () => {
@@ -111,11 +104,12 @@ export default /*const*/function FormComponent(/*{
                     name="temporizador"
                     id="temporizador-select"
                     disabled={!formAtivo}
+                    onChange={handleTemporizador}
                   >
-                    <option value="">Desligado</option>
-                    <option value="">30 Segundos</option>
-                    <option value="">1 Minuto</option>
-                    <option value="">2 Minutos</option>
+                    <option value="timerOff">Desligado</option>
+                    <option value="timer30">30 Segundos</option>
+                    <option value="timer1">1 Minuto</option>
+                    <option value="timer2">2 Minutos</option>
                   </select>
                 </label>
                 <label id="mini-tabuleiro">
