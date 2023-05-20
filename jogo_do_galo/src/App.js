@@ -196,8 +196,8 @@ function App() {
    ******************************/
 
   if (gamestart) {
-    console.log("Temporizador jogador1:", jogador1.timer);
-    console.log("Temporizador jogador2:", jogador2.timer);
+    //console.log("Temporizador jogador1:", jogador1.timer);
+    //console.log("Temporizador jogador2:", jogador2.timer);
     for (let i = 1; i <= 9; i++) {
       tabuleiros.push(
         <Tabuleiro 
