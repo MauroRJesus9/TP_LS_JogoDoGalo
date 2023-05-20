@@ -47,11 +47,11 @@ function App() {
 
   //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({nome: "", timer: NaN});
+  const [jogador1, setJogador1] = useState({nome: "", timer: NaN, numWins: 0});
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({nome: "", timer: NaN});
+  const [jogador2, setJogador2] = useState({nome: "", timer: NaN, numWins: 0});
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
@@ -67,7 +67,13 @@ function App() {
 
   const handleGameStart = () => {
     if(gamestart){
-      setGameStart(false);
+      setGameStart((previousValue) => !previousValue);
+      setJogador1({nome: "", timer: NaN, numWins: 0});
+      setJogador2({nome: "", timer: NaN, numWins: 0});
+      setCurrentPlayer(PLAYER1);
+      setActiveTimer(1);
+      setIsGameOver(false);
+      setWinner("");
     }else{
       setGameStart(true);
     }
@@ -78,21 +84,63 @@ function App() {
   }
 
   const handleJogador1MudarNome = (event) => {
+
+    /*if (Math.random() < 0.5) {
+      setJogador1((previousValue) => {
+        return { ...previousValue, nome: event.target.value };
+      });
+    } else {
+      setJogador2((previousValue) => {
+        return { ...previousValue, nome: event.target.value };
+      });
+    }*/
     //setJogador1(event.target.value);
     setJogador1((previousValue) => {
-      return { ...previousValue, nome: event.target.value};
+      return { ...previousValue, nome: event.target.value };
     });
   };
 
   const handleJogador2MudarNome = (event) => {
     //setJogador2(event.target.value);
     setJogador2((previousValue) => {
-      return { ...previousValue, nome: event.target.value};
+      return { ...previousValue, nome: event.target.value };
     });
   };
 
+  useEffect(() => {
+    scramblePlayersOrder();
+  }, []);
+
+  const scramblePlayersOrder = () => {
+
+    if (Math.random() < 0.5) {
+      setJogador1((previousValue) => ({ ...previousValue }));
+      setJogador2((previousValue) => ({ ...previousValue }));
+    } else {
+      setJogador1((previousValue) => ({ ...previousValue, ...jogador2 }));
+      setJogador2((previousValue) => ({ ...previousValue, ...jogador1 }));
+    }
+
+    console.log("jogador1: " + jogador1.nome);
+    console.log("jogador2: " + jogador2.nome);
+  }
+
+  //calculo do winner final
+  const handleWinsUpdate = (winner) => {
+    //console.log("Winner " + winner);
+    /*if(winner === "X")
+      setJogador1((previousValue) => {
+        return { ...previousValue, numWins: previousValue.numWins + 1};
+      });
+    else
+      setJogador2((previousValue) => {
+        return { ...previousValue, numWins: previousValue.numWins + 1};
+      });*/
+  }
+  //calculo do winner final
+
   //Resetar os estados todos quando se sai
-  const handleSair = () => {
+  /*const handleSair = () => {
     //setGameStart(false);
     handleGameStart();
     setJogador1("", NaN);
@@ -101,7 +149,7 @@ function App() {
     setActiveTimer(1);
     setIsGameOver(false);
     setWinner("");
-  };
+  };*/
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -116,7 +164,7 @@ function App() {
         return { ...previousValue, timer: 5 };
       });
       setJogador2((previousValue) =>{
-        return { ...previousValue, timer: 30 };
+        return { ...previousValue, timer: 5 };
       });
     } else if (option === "timer1"){
       setJogador1((previousValue) =>{
@@ -151,7 +199,7 @@ function App() {
    ******************************/
 
   useEffect(() => {
-    if(!isNaN(jogador1.timer) && (currentPlayer === PLAYER1 && gamestart)){
+    if(!isNaN(jogador1.timer) && currentPlayer === PLAYER1 && gamestart && !isGameOver){
       setActiveTimer(1);
       let nextTimer;
       timerIdX = setInterval(() => {
@@ -161,13 +209,16 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          //handleSair();
           setIsGameOver(true);
           setWinner(jogador2.nome);
           clearInterval(timerIdX);
         }
-
+        console.log("1 -> " +jogador1.numWins);
       }, 1000);
+    }else if (isNaN(jogador1.timer) || isGameOver) {
+      setJogador1((previousValue) => {
+        return { ...previousValue, timer: 0 };
+      });
     }else if(isNaN(jogador1.timer)){
       setActiveTimer(3);
     }
@@ -181,7 +232,7 @@ function App() {
   }, [jogador1.timer, currentPlayer, gamestart]);
 
   useEffect(() => {
-    if(!isNaN(jogador2.timer) && (currentPlayer === PLAYER2 && gamestart)){
+    if(!isNaN(jogador2.timer) && currentPlayer === PLAYER2 && gamestart && !isGameOver){
       setActiveTimer(2);
       let nextTimer;
       timerIdY = setInterval(() => {
@@ -191,13 +242,16 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          //handleSair();
           setIsGameOver(true);
           setWinner(jogador1.nome);
           clearInterval(timerIdY);
         }
-
+        console.log("2 -> " + jogador2.numWins);
       }, 1000);
+    }else if (isNaN(jogador2.timer) || isGameOver) {
+      setJogador1((previousValue) => {
+        return { ...previousValue, timer: 0 };
+      });
     }else if(isNaN(jogador2.timer)){
       setActiveTimer(3);
     }
@@ -224,7 +278,10 @@ function App() {
           id={i} 
           jogador1={jogador1.nome} 
           jogador2={jogador2.nome} 
+          jogador1Wins={jogador1.numWins}
+          jogador2Wins={jogador2.numWins}
           onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
+          onWin={handleWinsUpdate}
         />
       );
     }
@@ -252,13 +309,13 @@ function App() {
             timerX={isNaN(jogador1.timer) ? "--" : jogador1.timer + "s"} 
             timerO={isNaN(jogador2.timer) ? "--" : jogador2.timer + "s"}
             activeTimer={activeTimer}
-            handleSair={handleSair}
+            handleSair={handleGameStart}
           />
           <div className="grid-container">{tabuleiros}</div>
           {isGameOver &&  <GameOverModal 
                             gameover={true} 
                             winner={winner} 
-                            handleSair={handleSair}
+                            handleSair={handleGameStart}
                           />} {/* falta condiçao para quando ha um winner sem ser por tempo */}
         </>
       )}

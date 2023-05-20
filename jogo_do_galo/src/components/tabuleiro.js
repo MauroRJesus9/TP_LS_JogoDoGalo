@@ -66,7 +66,7 @@ function calculateWinner(squares, jogador1, jogador2) {
 }
 
 function Tabuleiro(props) {
-  const { jogador1, jogador2, onSquareClick } = props; //add onSquareClick como props para poder receber o jogador atual
+  const { jogador1, jogador2, jogador1Wins, jogador2Wins, onSquareClick, onWin } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
@@ -93,6 +93,10 @@ function Tabuleiro(props) {
 
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares, jogador1, jogador2);
+
+  //envia o winner
+  onWin(winner);
+  //envia o winner
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";

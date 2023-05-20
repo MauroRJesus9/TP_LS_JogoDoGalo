@@ -5,11 +5,11 @@ export default function GameOverModal(props){
 
     const { gameover, winner, handleSair } = props;
 
-    const modalClassName = gameover ? "game-over-modal" : "hidden";
+    //const modalClassName = gameover ? "game-over-modal" : "hidden";
 
     return (
-        <div id={modalClassName}>
-            <span id="message">Winner</span>
+        <div id=/*{modalClassName}*/"game-over-modal">
+            <span id="message">Winner </span>
             <span id="message">{winner}</span>
             <button onClick={handleSair}>Sair</button>
         </div>
