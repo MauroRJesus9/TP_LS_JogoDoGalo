@@ -54,14 +54,14 @@ function App() {
   const handleJogador1MudarNome = (event) => {
     //setJogador1(event.target.value);
     setJogador1((previousValue) => {
-      return { ...previousValue, nome: event.target.value };
+      return { ...previousValue, nome: event.target.value};
     });
   };
 
   const handleJogador2MudarNome = (event) => {
     //setJogador2(event.target.value);
-    setJogador1((previousValue) => {
-      return { ...previousValue, nome: event.target.value };
+    setJogador2((previousValue) => {
+      return { ...previousValue, nome: event.target.value};
     });
   };
 
