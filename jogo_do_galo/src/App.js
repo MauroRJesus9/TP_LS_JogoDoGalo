@@ -47,11 +47,11 @@ function App() {
 
   //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({nome: "", timer: NaN, numWins: 0});
+  const [jogador1, setJogador1] = useState({nome: "", timer: NaN});
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({nome: "", timer: NaN, numWins: 0});
+  const [jogador2, setJogador2] = useState({nome: "", timer: NaN});
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
@@ -68,8 +68,8 @@ function App() {
   const handleGameStart = () => {
     if(gamestart){
       setGameStart((previousValue) => !previousValue);
-      setJogador1({nome: "", timer: NaN, numWins: 0});
-      setJogador2({nome: "", timer: NaN, numWins: 0});
+      setJogador1({nome: "", timer: NaN});
+      setJogador2({nome: "", timer: NaN});
       setCurrentPlayer(PLAYER1);
       setActiveTimer(1);
       setIsGameOver(false);
@@ -84,16 +84,6 @@ function App() {
   }
 
   const handleJogador1MudarNome = (event) => {
-
-    /*if (Math.random() < 0.5) {
-      setJogador1((previousValue) => {
-        return { ...previousValue, nome: event.target.value };
-      });
-    } else {
-      setJogador2((previousValue) => {
-        return { ...previousValue, nome: event.target.value };
-      });
-    }*/
     //setJogador1(event.target.value);
     setJogador1((previousValue) => {
       return { ...previousValue, nome: event.target.value };
@@ -108,7 +98,7 @@ function App() {
   };
 
   //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
- /* useEffect(() => { 
+  /*useEffect(() => { 
     console.log("jogador1: " + jogador1.nome);
     console.log("jogador2: " + jogador2.nome);
   }, [jogador1, jogador2]);*/
@@ -123,20 +113,6 @@ function App() {
       setJogador2((previousValue) => ({ ...previousValue }));
     }
   }
-
-  //calculo do winner final
-  const handleWinsUpdate = (winner) => {
-    //console.log("Winner " + winner);
-    /*if(winner === "X")
-      setJogador1((previousValue) => {
-        return { ...previousValue, numWins: previousValue.numWins + 1};
-      });
-    else
-      setJogador2((previousValue) => {
-        return { ...previousValue, numWins: previousValue.numWins + 1};
-      });*/
-  }
-  //calculo do winner final
 
   //Resetar os estados todos quando se sai
   /*const handleSair = () => {
@@ -278,10 +254,7 @@ function App() {
           id={i} 
           jogador1={jogador1.nome} 
           jogador2={jogador2.nome} 
-          jogador1Wins={jogador1.numWins}
-          jogador2Wins={jogador2.numWins}
           onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
-          onWin={handleWinsUpdate}
         />
       );
     }
@@ -306,6 +279,8 @@ function App() {
           <ControlBar 
             /*timerX={jogador1Timer} 
             timerO={jogador2Timer}*/
+            jogador1={jogador1.nome}
+            jogador2={jogador2.nome}
             timerX={isNaN(jogador1.timer) ? "--" : jogador1.timer + "s"} 
             timerO={isNaN(jogador2.timer) ? "--" : jogador2.timer + "s"}
             activeTimer={activeTimer}
