@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Tabuleiro from "./componentes/tabuleiro";
-import ControlBar from "./componentes/control-bar/control-bar.component";
-import FormComponent from "./componentes/form/form.component";
+import Tabuleiro from "./components/tabuleiro";
+import ControlBar from "./components/control-bar/control-bar.component";
+import FormComponent from "./components/form/form.component";
+import GameOverModal from "./components/game-over-modal/game-over-modal.component";
 import "./App.css";
 
 import { 
   PLAYER1,
   PLAYER2
 } from "./constants/constants";
+
+/*import {
+  Tabuleiro, 
+  ControlBar,
+  FormComponent,
+  GameOverModal
+} from "./components";*/
 
 function App() {
   //gamemodes
@@ -228,6 +236,7 @@ function App() {
             handleSair={handleSair}
           />
           <div className="grid-container">{tabuleiros}</div>
+          <GameOverModal/>
         </>
       )}
     </>

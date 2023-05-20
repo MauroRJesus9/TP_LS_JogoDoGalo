@@ -1,3 +1,4 @@
+import React from "react";
 import "./control-bar.css";
 
 export default function ControlBar(props){
