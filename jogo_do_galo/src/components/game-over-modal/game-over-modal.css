@@ -1,5 +1,19 @@
 #game-over-modal{
-    margin: auto auto auto auto;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 150px 300px;
+    background-color: orange;
+    border-radius: 20px;
+}
+
+#message{
+    font-weight: bolder;
+    color: black;
+    font-style: normal;
 }
 
 #hidden{

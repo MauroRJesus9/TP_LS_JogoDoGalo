@@ -29,6 +29,8 @@ function App() {
   
   //State que seleciona o timerAtivo
   const [activeTimer, setActiveTimer] = useState(1);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [winner, setWinner] = useState("");
 
   //State que tem o Jogador que se encontra a jogar
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
@@ -63,6 +65,14 @@ function App() {
    *    HANDLERS DOS ESTADOS    *
    ******************************/
 
+  const handleGameStart = () => {
+    if(gamestart){
+      setGameStart(false);
+    }else{
+      setGameStart(true);
+    }
+  }
+
   const handleCurrentPlayer = (value) => {
     setCurrentPlayer(value === PLAYER1 ? PLAYER2 : PLAYER1);
   }
@@ -83,11 +93,14 @@ function App() {
 
   //Resetar os estados todos quando se sai
   const handleSair = () => {
-    setGameStart(false);
+    //setGameStart(false);
+    handleGameStart();
     setJogador1("", NaN);
     setJogador2("", NaN);
     setCurrentPlayer(PLAYER1);
     setActiveTimer(1);
+    setIsGameOver(false);
+    setWinner("");
   };
 
   const handleSubmit = (event) => {
@@ -100,7 +113,7 @@ function App() {
     const option = event.target.value;
     if (option === "timer30") {
       setJogador1((previousValue) =>{
-        return { ...previousValue, timer: 30 };
+        return { ...previousValue, timer: 5 };
       });
       setJogador2((previousValue) =>{
         return { ...previousValue, timer: 30 };
@@ -148,7 +161,10 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          handleSair();
+          //handleSair();
+          setIsGameOver(true);
+          setWinner(jogador2.nome);
+          clearInterval(timerIdX);
         }
 
       }, 1000);
@@ -175,7 +191,10 @@ function App() {
         });
 
         if (nextTimer === 0) {
-          handleSair();
+          //handleSair();
+          setIsGameOver(true);
+          setWinner(jogador1.nome);
+          clearInterval(timerIdY);
         }
 
       }, 1000);
@@ -236,7 +255,11 @@ function App() {
             handleSair={handleSair}
           />
           <div className="grid-container">{tabuleiros}</div>
-          <GameOverModal/>
+          {isGameOver &&  <GameOverModal 
+                            gameover={true} 
+                            winner={winner} 
+                            handleSair={handleSair}
+                          />} {/* falta condiçao para quando ha um winner sem ser por tempo */}
         </>
       )}
     </>
