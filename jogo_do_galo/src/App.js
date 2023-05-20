@@ -107,22 +107,21 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    scramblePlayersOrder();
-  }, []);
+  //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
+ /* useEffect(() => { 
+    console.log("jogador1: " + jogador1.nome);
+    console.log("jogador2: " + jogador2.nome);
+  }, [jogador1, jogador2]);*/
 
   const scramblePlayersOrder = () => {
 
     if (Math.random() < 0.5) {
+      setJogador1((previousValue) => ({ ...previousValue, nome: jogador2.nome }));
+      setJogador2((previousValue) => ({ ...previousValue, nome: jogador1.nome }));
+    } else {
       setJogador1((previousValue) => ({ ...previousValue }));
       setJogador2((previousValue) => ({ ...previousValue }));
-    } else {
-      setJogador1((previousValue) => ({ ...previousValue, ...jogador2 }));
-      setJogador2((previousValue) => ({ ...previousValue, ...jogador1 }));
     }
-
-    console.log("jogador1: " + jogador1.nome);
-    console.log("jogador2: " + jogador2.nome);
   }
 
   //calculo do winner final
@@ -154,6 +153,7 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setGameStart(true);
+    scramblePlayersOrder();
   };
 
   //temporizador
@@ -213,7 +213,7 @@ function App() {
           setWinner(jogador2.nome);
           clearInterval(timerIdX);
         }
-        console.log("1 -> " +jogador1.numWins);
+        //console.log("1 -> " +jogador1.numWins);
       }, 1000);
     }else if (isNaN(jogador1.timer) || isGameOver) {
       setJogador1((previousValue) => {
@@ -246,7 +246,7 @@ function App() {
           setWinner(jogador1.nome);
           clearInterval(timerIdY);
         }
-        console.log("2 -> " + jogador2.numWins);
+        //console.log("2 -> " + jogador2.numWins);
       }, 1000);
     }else if (isNaN(jogador2.timer) || isGameOver) {
       setJogador1((previousValue) => {
