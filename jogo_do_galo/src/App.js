@@ -12,6 +12,10 @@ import {
 function App() {
   //gamemodes
 
+  /****************************** 
+   *    VARIÁVEIS E ESTADOS     *
+   ******************************/
+
   let timerIdX = undefined;
   let timerIdY = undefined;
   
@@ -44,8 +48,12 @@ function App() {
   const tabuleiros = [];
 
   /****************************** 
-  *    HANDLERS DOS ESTADOS    *
-  ******************************/
+   *    VARIÁVEIS E ESTADOS     *
+   ******************************/
+
+  /****************************** 
+   *    HANDLERS DOS ESTADOS    *
+   ******************************/
 
   const handleCurrentPlayer = (value) => {
     setCurrentPlayer(value === PLAYER1 ? PLAYER2 : PLAYER1);
@@ -114,25 +122,12 @@ function App() {
   };
 
   /****************************** 
-  *    HANDLERS DOS ESTADOS    *
-  ******************************/
+   *    HANDLERS DOS ESTADOS    *
+   ******************************/
 
-  if (gamestart) {
-    console.log("Temporizador jogador1:", jogador1.timer);
-    console.log("Temporizador jogador2:", jogador2.timer);
-    for (let i = 1; i <= 9; i++) {
-      tabuleiros.push(
-        <Tabuleiro 
-          key={i} 
-          id={i} 
-          jogador1={jogador1.nome} 
-          jogador2={jogador2.nome} 
-          onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
-        />
-      );
-    }
-
-  }
+  /****************************** 
+   *       TIMER FUNCTIONS       *
+   ******************************/
 
   useEffect(() => {
     if(!isNaN(jogador1.timer) && (currentPlayer === PLAYER1 && gamestart)){
@@ -187,6 +182,27 @@ function App() {
     };
     
   }, [jogador2.timer, currentPlayer, gamestart]);
+
+  /****************************** 
+   *       TIMER FUNCTIONS      *
+   ******************************/
+
+  if (gamestart) {
+    console.log("Temporizador jogador1:", jogador1.timer);
+    console.log("Temporizador jogador2:", jogador2.timer);
+    for (let i = 1; i <= 9; i++) {
+      tabuleiros.push(
+        <Tabuleiro 
+          key={i} 
+          id={i} 
+          jogador1={jogador1.nome} 
+          jogador2={jogador2.nome} 
+          onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
+        />
+      );
+    }
+
+  }
 
   return (
     <>
