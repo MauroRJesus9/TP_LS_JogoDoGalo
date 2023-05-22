@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Square(props) {
 
-
+  const pickPlayerColor = props.value === "X" ? "blue" : "red";
   /* let buttonStyle =
     props.value === "X"
       ? "btn-x"
@@ -13,8 +13,10 @@ function Square(props) {
     /*<button className={"square"} onClick={props.onClick}> 
       {props.value}
     </button>*/
-    <button className={"square"} onClick={() => props.onClick()}> {/* changed */}
-      {props.value}
+    <button className="square" onClick={() => props.onClick()}> {/* changed */} {/* MUDANÇA PROVISORIA -> melhorar a maneira de colorir o conteudo sem ser in-line Style */}
+      <span style={{color: pickPlayerColor, fontWeight: "bold"}}>
+        {props.value}
+      </span>
     </button>
   );
 }

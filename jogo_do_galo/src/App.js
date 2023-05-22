@@ -36,22 +36,12 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
 
   //State do Jogador1
-  //V1
-  /*const [jogador1, setJogador1] = useState("");
-  const [jogador1Timer, setJogador1Timer] = useState(0);*/
-
-  //State do Jogador2
-  //V1
-  /*const [jogador2, setJogador2] = useState("");
-  const [jogador2Timer, setJogador2Timer] = useState(0);*/
-
-  //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({nome: "", timer: NaN});
+  const [jogador1, setJogador1] = useState({name: "", timer: NaN, symbol: "X"});
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({nome: "", timer: NaN});
+  const [jogador2, setJogador2] = useState({name: "", timer: NaN, symbol: "O"});
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
@@ -68,8 +58,8 @@ function App() {
   const handleGameStart = () => {
     if(gamestart){
       setGameStart((previousValue) => !previousValue);
-      setJogador1({nome: "", timer: NaN});
-      setJogador2({nome: "", timer: NaN});
+      setJogador1({name: "", timer: NaN, symbol: "X"});
+      setJogador2({name: "", timer: NaN, symbol: "O"});
       setCurrentPlayer(PLAYER1);
       setActiveTimer(1);
       setIsGameOver(false);
@@ -86,14 +76,14 @@ function App() {
   const handleJogador1MudarNome = (event) => {
     //setJogador1(event.target.value);
     setJogador1((previousValue) => {
-      return { ...previousValue, nome: event.target.value };
+      return { ...previousValue, name: event.target.value };
     });
   };
 
   const handleJogador2MudarNome = (event) => {
     //setJogador2(event.target.value);
     setJogador2((previousValue) => {
-      return { ...previousValue, nome: event.target.value };
+      return { ...previousValue, name: event.target.value };
     });
   };
 
@@ -106,8 +96,8 @@ function App() {
   const scramblePlayersOrder = () => {
 
     if (Math.random() < 0.5) {
-      setJogador1((previousValue) => ({ ...previousValue, nome: jogador2.nome }));
-      setJogador2((previousValue) => ({ ...previousValue, nome: jogador1.nome }));
+      setJogador1((previousValue) => ({ ...previousValue, name: jogador2.name }));
+      setJogador2((previousValue) => ({ ...previousValue, name: jogador1.name }));
     } else {
       setJogador1((previousValue) => ({ ...previousValue }));
       setJogador2((previousValue) => ({ ...previousValue }));
@@ -171,7 +161,7 @@ function App() {
    ******************************/
 
   /****************************** 
-   *       TIMER FUNCTIONS       *
+   *       TIMER FUNCTIONS      *
    ******************************/
 
   useEffect(() => {
@@ -186,7 +176,7 @@ function App() {
 
         if (nextTimer === 0) {
           setIsGameOver(true);
-          setWinner(jogador2.nome);
+          setWinner(jogador2.name);
           clearInterval(timerIdX);
         }
         //console.log("1 -> " +jogador1.numWins);
@@ -219,7 +209,7 @@ function App() {
 
         if (nextTimer === 0) {
           setIsGameOver(true);
-          setWinner(jogador1.nome);
+          setWinner(jogador1.name);
           clearInterval(timerIdY);
         }
         //console.log("2 -> " + jogador2.numWins);
@@ -252,8 +242,8 @@ function App() {
         <Tabuleiro 
           key={i} 
           id={i} 
-          jogador1={jogador1.nome} 
-          jogador2={jogador2.nome} 
+          jogador1={jogador1.name} 
+          jogador2={jogador2.name} 
           onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
         />
       );
@@ -269,8 +259,8 @@ function App() {
             handleJogador1MudarNome={handleJogador1MudarNome}
             handleJogador2MudarNome={handleJogador2MudarNome}
             handleSubmit={handleSubmit}
-            jogador1={jogador1.nome}
-            jogador2={jogador2.nome}
+            jogador1={jogador1.name}
+            jogador2={jogador2.name}
             handleTemporizador={handleTemporizador}
           />
         </>
@@ -279,8 +269,8 @@ function App() {
           <ControlBar 
             /*timerX={jogador1Timer} 
             timerO={jogador2Timer}*/
-            jogador1={jogador1.nome}
-            jogador2={jogador2.nome}
+            jogador1={jogador1}
+            jogador2={jogador2}
             timerX={isNaN(jogador1.timer) ? "--" : jogador1.timer + "s"} 
             timerO={isNaN(jogador2.timer) ? "--" : jogador2.timer + "s"}
             activeTimer={activeTimer}
