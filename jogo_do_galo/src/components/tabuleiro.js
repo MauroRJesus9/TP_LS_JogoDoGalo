@@ -117,7 +117,7 @@ function Tabuleiro(props) {
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={handleClick} />
+        <Board squares={current.squares} onClick={handleClick}/>
       </div>
       <div className="game-info">
         <div>{status}</div>
