@@ -181,7 +181,7 @@ function App() {
       timerIdX = setInterval(() => {
         setTimer((previousState) => {
           nextTimer = previousState - 1;
-          return nextTimer;
+          return nextTimer >= 0 ? nextTimer : 0;
         });
         if (nextTimer === 0) {
           setIsGameOver(true);
