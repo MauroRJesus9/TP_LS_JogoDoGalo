@@ -302,6 +302,7 @@ function App() {
         </>
       ) : (
         <>
+          {/* TWO TIMERS VERSION */}
           {/*<ControlBar 
             jogador1={jogador1}
             jogador2={jogador2}
