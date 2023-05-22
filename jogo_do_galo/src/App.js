@@ -25,10 +25,11 @@ function App() {
    ******************************/
 
   let timerIdX = undefined;
-  let timerIdY = undefined;
+  //let timerIdY = undefined;
   
   //State que seleciona o timerAtivo
-  const [activeTimer, setActiveTimer] = useState(1);
+  //const [activeTimer, setActiveTimer] = useState(1);
+  const [timer, setTimer] = useState(NaN);
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
 
@@ -37,11 +38,11 @@ function App() {
 
   //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({name: "", timer: NaN, symbol: "X"});
+  const [jogador1, setJogador1] = useState({name: ""/*, timer: NaN*/, symbol: "X"});
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({name: "", timer: NaN, symbol: "O"});
+  const [jogador2, setJogador2] = useState({name: ""/*, timer: NaN*/, symbol: "O"});
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
@@ -58,10 +59,11 @@ function App() {
   const handleGameStart = () => {
     if(gamestart){
       setGameStart((previousValue) => !previousValue);
-      setJogador1({name: "", timer: NaN, symbol: "X"});
-      setJogador2({name: "", timer: NaN, symbol: "O"});
+      setJogador1({name: ""/*, timer: NaN*/, symbol: "X"});
+      setJogador2({name: ""/*, timer: NaN*/, symbol: "O"});
       setCurrentPlayer(PLAYER1);
-      setActiveTimer(1);
+      //setActiveTimer(1);
+      setTimer(NaN);
       setIsGameOver(false);
       setWinner("");
     }else{
@@ -125,7 +127,7 @@ function App() {
   //temporizador
   const handleTemporizador = (event) => {
     const option = event.target.value;
-    if (option === "timer30") {
+    /*if (option === "timer30") {
       setJogador1((previousValue) =>{
         return { ...previousValue, timer: 5 };
       });
@@ -153,6 +155,15 @@ function App() {
       setJogador2((previousValue) => {
         return { ...previousValue, timer: NaN };
       });
+    }*/
+    switch(option){
+      case "timer30": setTimer(5);
+                      break;
+      case "timer1": setTimer(60);
+                      break;         
+      case "timer2": setTimer(120);
+                      break;
+      default: setTimer(NaN);
     }
   };
 
@@ -165,6 +176,31 @@ function App() {
    ******************************/
 
   useEffect(() => {
+    if (gamestart) {
+      let nextTimer;
+      timerIdX = setInterval(() => {
+        setTimer((previousState) => {
+          nextTimer = previousState - 1;
+          return nextTimer;
+        });
+        if (nextTimer === 0) {
+          setIsGameOver(true);
+          setWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
+          clearInterval(timerIdX);
+        }
+      }, 1000);
+    }else if (isNaN(timer) || isGameOver) {
+      setTimer("--"); // Definir como "--" quando o valor for NaN
+    }
+
+    return () => {
+      if (timerIdX) {
+        clearInterval(timerIdX);
+      }
+    };
+  }, [gamestart]);
+
+  /*useEffect(() => {
     if(!isNaN(jogador1.timer) && currentPlayer === PLAYER1 && gamestart && !isGameOver){
       setActiveTimer(1);
       let nextTimer;
@@ -228,7 +264,7 @@ function App() {
       }
     };
     
-  }, [jogador2.timer, currentPlayer, gamestart]);
+  }, [jogador2.timer, currentPlayer, gamestart]);*/
 
   /****************************** 
    *       TIMER FUNCTIONS      *
@@ -266,14 +302,19 @@ function App() {
         </>
       ) : (
         <>
-          <ControlBar 
-            /*timerX={jogador1Timer} 
-            timerO={jogador2Timer}*/
+          {/*<ControlBar 
             jogador1={jogador1}
             jogador2={jogador2}
             timerX={isNaN(jogador1.timer) ? "--" : jogador1.timer + "s"} 
             timerO={isNaN(jogador2.timer) ? "--" : jogador2.timer + "s"}
             activeTimer={activeTimer}
+            handleSair={handleGameStart}
+          />*/}
+          <ControlBar 
+            jogador1={jogador1}
+            jogador2={jogador2}
+            currentPlayer={currentPlayer}
+            timer={isNaN(timer) ? "--" : timer + "s"}
             handleSair={handleGameStart}
           />
           <div className="grid-container">{tabuleiros}</div>
