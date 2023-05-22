@@ -23,7 +23,11 @@ function Square(props) {
 
 function Board(props) {
   function renderSquare(i) {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+    //const isWinner = props.winner && props.winner === props.squares[i];
+
+    return <Square  value={props.squares[i]} 
+                    onClick={() => props.onClick(i)}  
+                    />;
   }
 
   return (
