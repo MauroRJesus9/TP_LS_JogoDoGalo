@@ -10,11 +10,8 @@ function Square(props) {
       ? "square o"
       : "square"; */
   return (
-    /*<button className={"square"} onClick={props.onClick}> 
-      {props.value}
-    </button>*/
-    <button className="square" onClick={() => props.onClick()}> {/* changed */} {/* MUDANÇA PROVISORIA -> melhorar a maneira de colorir o conteudo sem ser in-line Style */}
-      <span style={{color: pickPlayerColor, fontWeight: "bold"}}>
+    <button className="square" onClick={() => props.onClick()} disabled={props.disabled}> {/* changed */}
+      <span style={{color: pickPlayerColor, fontWeight: "bold"}}> {/* MUDANÇA PROVISORIA -> melhorar a maneira de colorir o conteudo sem ser in-line Style */}
         {props.value}
       </span>
     </button>
@@ -23,10 +20,10 @@ function Square(props) {
 
 function Board(props) {
   function renderSquare(i) {
-    //const isWinner = props.winner && props.winner === props.squares[i];
 
     return <Square  value={props.squares[i]} 
                     onClick={() => props.onClick(i)}  
+                    disabled={props.winner !== null}
                     />;
   }
 
@@ -121,7 +118,7 @@ function Tabuleiro(props) {
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={handleClick}/>
+        <Board squares={current.squares} onClick={handleClick} winner={winner}/>
       </div>
       <div className="game-info">
         <div>{status}</div>
