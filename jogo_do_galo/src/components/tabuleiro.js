@@ -104,6 +104,7 @@ function Tabuleiro(props) {
     else if(winner === jogador2.name)
       updateTabWins(jogador2.name);
   }, [winner, jogador1.name, jogador2.name]);
+  //duvida? porque que tive que usar o useEffect
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";

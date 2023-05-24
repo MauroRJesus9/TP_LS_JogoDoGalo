@@ -180,6 +180,7 @@ function App() {
     }
   }
 
+  //funcao que da update ao numero de Wins dos mini-boards(REVER PROCESSO)
   const handleNumOfWins = (miniBoardWinner) => {
 
     if(miniBoardWinner === jogador1.name){
