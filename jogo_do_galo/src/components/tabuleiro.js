@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Square(props) {
 
@@ -69,7 +69,7 @@ function calculateWinner(squares, jogador1, jogador2) {
 }
 
 function Tabuleiro(props) {
-  const { jogador1, jogador2, onSquareClick } = props; //add onSquareClick como props para poder receber o jogador atual
+  const { jogador1, jogador2, onSquareClick, updateTabWins } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
@@ -95,7 +95,15 @@ function Tabuleiro(props) {
   };
 
   const current = history[stepNumber];
-  const winner = calculateWinner(current.squares, jogador1, jogador2);
+  const winner = calculateWinner(current.squares, jogador1.name, jogador2.name); //retorna o nome do jogador
+
+  //duvida? porque que tive que usar o useEffect
+  useEffect(() => {
+    if(winner === jogador1.name)
+      updateTabWins(jogador1.name);
+    else if(winner === jogador2.name)
+      updateTabWins(jogador2.name);
+  }, [winner, jogador1.name, jogador2.name]);
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
@@ -106,14 +114,23 @@ function Tabuleiro(props) {
     );
   });
 
+
   let status;
   if (winner) {
     status = `Winner: ${winner}`;
   } else if (history.length === 10) {
     status = "Draw!";
   } else {
-    status = `Next player: ${xIsNext ? jogador1 : jogador2}`;
+    status = `Next player: ${xIsNext ? jogador1.name : jogador2.name}`;
   }
+
+  /*useEffect(() => {
+    if (winner === jogador1 || winner === jogador2) {
+      // Chamar a função de callback para enviar o valor do vencedor para o componente pai (App.js)
+      updateNumOfWins(winner);
+    }
+  }, [winner, updateNumOfWins]);*/
+  
 
   return (
     <div className="game">

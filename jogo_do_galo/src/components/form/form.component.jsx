@@ -8,6 +8,7 @@ export default function FormComponent(props) {
   const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2, handleTemporizador } = props;
   const [formAtivo, setFormAtivo] = useState(false);
 
+  //ALTERAR
   const escolhe2Jogadores = () => {
     const iJ2 = document.getElementById("inputJogador2");
     setFormAtivo(true);
@@ -20,6 +21,7 @@ export default function FormComponent(props) {
     iJ2.value = "";
     setFormAtivo(true);
   };
+  //ALTERAR
 
   return (
     <>
