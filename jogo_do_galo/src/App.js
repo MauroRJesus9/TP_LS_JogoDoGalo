@@ -231,11 +231,8 @@ function App() {
         handleUltimateWinner(nextTimer);
 
         if (nextTimer === 0) {
-          //setIsGameOver(true);
-          //handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
           clearInterval(timerIdX);
         }
-        //console.log("1 -> " +jogador1.numWins);
       }, 1000);
     }else if (isNaN(jogador1.timer) || isGameOver) {
       setJogador1((previousValue) => {
@@ -266,12 +263,8 @@ function App() {
         handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
 
         if (nextTimer === 0) {
-          //setIsGameOver(true);
-          //handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
-          //setWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
           clearInterval(timerIdY);
         }
-        //console.log("2 -> " + jogador2.numWins);
       }, 1000);
     }else if (isNaN(jogador2.timer) || isGameOver) {
       setJogador1((previousValue) => {
