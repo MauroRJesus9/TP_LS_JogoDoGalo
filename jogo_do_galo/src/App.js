@@ -24,12 +24,11 @@ function App() {
    *    VARIÁVEIS E ESTADOS     *
    ******************************/
 
-  let timerId = undefined;
-  //let timerIdY = undefined;
+  let timerIdX = undefined;
+  let timerIdY = undefined;
   
   //State que seleciona o timerAtivo
-  //const [activeTimer, setActiveTimer] = useState(1);
-  const [timer, setTimer] = useState(NaN);
+  const [activeTimer, setActiveTimer] = useState(1);
   const [isGameOver, setIsGameOver] = useState(false);
   const [ultimateWinner, setUltimateWinner] = useState("");
 
@@ -38,11 +37,11 @@ function App() {
 
   //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({name: ""/*, timer: NaN*/, symbol: "X", numOfWins: 0});
+  const [jogador1, setJogador1] = useState({name: "", timer: NaN, symbol: "X", numOfWins: 0});
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({name: ""/*, timer: NaN*/, symbol: "O", numOfWins: 0});
+  const [jogador2, setJogador2] = useState({name: "", timer: NaN, symbol: "O", numOfWins: 0});
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
@@ -59,11 +58,10 @@ function App() {
   const handleGameStart = () => {
     if(gamestart){
       setGameStart((previousValue) => !previousValue);
-      setJogador1({name: ""/*, timer: NaN*/, symbol: "X", numOfWins: 0});
-      setJogador2({name: ""/*, timer: NaN*/, symbol: "O", numOfWins: 0});
+      setJogador1({name: "", timer: NaN, symbol: "X", numOfWins: 0});
+      setJogador2({name: "", timer: NaN, symbol: "O", numOfWins: 0});
       setCurrentPlayer(PLAYER1);
-      //setActiveTimer(1);
-      setTimer(NaN);
+      setActiveTimer(1);
       setIsGameOver(false);
       setUltimateWinner("");
     }else{
@@ -87,19 +85,26 @@ function App() {
     });
   };
 
+  /****************************** 
+   *          DEBUGGERS         *
+   ******************************/
   //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
   /*useEffect(() => { 
     console.log("jogador1: " + jogador1.nome);
     console.log("jogador2: " + jogador2.nome);
   }, [jogador1, jogador2]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("Jogador1.numOfWins:", jogador1.numOfWins);
   }, [jogador1.numOfWins]);
   
   useEffect(() => {
     console.log("Jogador2.numOfWins:", jogador2.numOfWins);
-  }, [jogador2.numOfWins]);
+  }, [jogador2.numOfWins]);*/
+
+  /****************************** 
+   *          DEBUGGERS         *
+   ******************************/
 
   const scramblePlayersOrder = () => {
 
@@ -112,18 +117,6 @@ function App() {
     }
   }
 
-  //Resetar os estados todos quando se sai
-  /*const handleSair = () => {
-    //setGameStart(false);
-    handleGameStart();
-    setJogador1("", NaN);
-    setJogador2("", NaN);
-    setCurrentPlayer(PLAYER1);
-    setActiveTimer(1);
-    setIsGameOver(false);
-    setUltimateWinner("");
-  };*/
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setGameStart(true);
@@ -133,7 +126,7 @@ function App() {
   //temporizador
   const handleTemporizador = (event) => {
     const option = event.target.value;
-    /*if (option === "timer30") {
+    if (option === "timer30") {
       setJogador1((previousValue) =>{
         return { ...previousValue, timer: 5 };
       });
@@ -161,22 +154,19 @@ function App() {
       setJogador2((previousValue) => {
         return { ...previousValue, timer: NaN };
       });
-    }*/
-    switch(option){
-      case "timer30": setTimer(5);
-                      break;
-      case "timer1": setTimer(60);
-                      break;         
-      case "timer2": setTimer(120);
-                      break;
-      default: setTimer(NaN);
     }
   };
 
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
-    if(gameTimer === 0){
-      setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
+    if(gameTimer > 0){
+      if(jogador1.numOfWins + jogador2.numOfWins === 9){
+        setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
+        setIsGameOver(true);
+      }
+    }else if(gameTimer === 0){
+      setUltimateWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
+      setIsGameOver(true);
     }
   }
 
@@ -202,7 +192,7 @@ function App() {
    *       TIMER FUNCTIONS      *
    ******************************/
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (gamestart) {
       let nextTimer;
       timerId = setInterval(() => {
@@ -226,9 +216,9 @@ function App() {
         clearInterval(timerId);
       }
     };
-  }, [gamestart]);
+  }, [gamestart]);*/
 
-  /*useEffect(() => {
+  useEffect(() => {
     if(!isNaN(jogador1.timer) && currentPlayer === PLAYER1 && gamestart && !isGameOver){
       setActiveTimer(1);
       let nextTimer;
@@ -238,9 +228,11 @@ function App() {
           return { ...previousValue, timer: nextTimer };
         });
 
+        handleUltimateWinner(nextTimer);
+
         if (nextTimer === 0) {
-          setIsGameOver(true);
-          setWinner(jogador2.name);
+          //setIsGameOver(true);
+          //handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
           clearInterval(timerIdX);
         }
         //console.log("1 -> " +jogador1.numWins);
@@ -271,9 +263,12 @@ function App() {
           return { ...previousValue, timer: nextTimer };
         });
 
+        handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
+
         if (nextTimer === 0) {
-          setIsGameOver(true);
-          setWinner(jogador1.name);
+          //setIsGameOver(true);
+          //handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
+          //setWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
           clearInterval(timerIdY);
         }
         //console.log("2 -> " + jogador2.numWins);
@@ -292,7 +287,7 @@ function App() {
       }
     };
     
-  }, [jogador2.timer, currentPlayer, gamestart]);*/
+  }, [jogador2.timer, currentPlayer, gamestart]);
 
   /****************************** 
    *       TIMER FUNCTIONS      *
@@ -330,21 +325,22 @@ function App() {
       ) : (
         <>
           {/* TWO TIMERS VERSION */}
-          {/*<ControlBar 
+          <ControlBar 
             jogador1={jogador1}
             jogador2={jogador2}
             timerX={isNaN(jogador1.timer) ? "--" : jogador1.timer + "s"} 
             timerO={isNaN(jogador2.timer) ? "--" : jogador2.timer + "s"}
             activeTimer={activeTimer}
             handleSair={handleGameStart}
-          />*/}
-          <ControlBar 
+          />
+          {/* ONE TIMER VERSION */}
+          {/*<ControlBar 
             jogador1={jogador1}
             jogador2={jogador2}
             currentPlayer={currentPlayer}
             timer={isNaN(timer) ? "--" : timer + "s"}
             handleSair={handleGameStart}
-          />
+          />*/}
           <div className="grid-container">{tabuleiros}</div>
           {isGameOver &&  <GameOverModal 
                             gameover={true} 

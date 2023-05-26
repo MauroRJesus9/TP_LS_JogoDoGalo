@@ -9,8 +9,7 @@ export default function GameOverModal(props){
 
     return (
         <div id=/*{modalClassName}*/"game-over-modal">
-            <span id="message">Winner </span>
-            <span id="message">{ultimateWinner}</span>
+            <span id="message">{`Winner ${ultimateWinner}`}</span>
             <button onClick={handleSair}>Sair</button>
         </div>
     );
