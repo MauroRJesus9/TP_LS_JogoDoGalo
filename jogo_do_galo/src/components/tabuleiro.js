@@ -20,6 +20,7 @@ function Board(props) {
     return <Square  value={props.squares[i]} 
                     onClick={() => props.onClick(i)}  
                     disabled={props.winner !== null}
+                    winner={props.winner}
                     jogador1={props.jogador1} 
                     jogador2={props.jogador2}
                     />;
@@ -123,18 +124,14 @@ function Tabuleiro(props) {
     status = `Next player: ${xIsNext ? jogador1.name : jogador2.name}`;
   }
 
-  /*useEffect(() => {
-    if (winner === jogador1 || winner === jogador2) {
-      // Chamar a função de callback para enviar o valor do vencedor para o componente pai (App.js)
-      updateNumOfWins(winner);
-    }
-  }, [winner, updateNumOfWins]);*/
-  
-
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={handleClick} winner={winner} jogador1={jogador1.name} jogador2={jogador2.name}/>
+        <Board  squares={current.squares} 
+                onClick={handleClick} 
+                winner={winner} 
+                jogador1={jogador1.name} 
+                jogador2={jogador2.name}/>
       </div>
       <div className="game-info">
         <div>{status}</div>

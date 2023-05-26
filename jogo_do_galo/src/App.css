@@ -63,11 +63,11 @@
 }
 
 .disabledB{
-  background-color: blue;
+  background-color: rgb(26, 26, 205);
 }
 
 .disabledR{
-  background-color: red;
+  background-color: rgb(157, 21, 21);
 }
 
 .board-row:after {
