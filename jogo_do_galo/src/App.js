@@ -146,7 +146,7 @@ function App() {
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
     if(gameTimer > 0){
-      if(jogador1.numOfWins + jogador2.numOfWins === 9){
+      if(jogador1.numOfWins + jogador2.numOfWins === 9){ //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
         setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
         setIsGameOver(true);
       }
