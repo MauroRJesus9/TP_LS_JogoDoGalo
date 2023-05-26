@@ -10,6 +10,7 @@ export default function GameOverModal(props){
     return (
         <div id=/*{modalClassName}*/"game-over-modal">
             <span id="message">{`Winner ${ultimateWinner}`}</span>
+            <button onClick={console.log("Jogar Novamente")}>Jogar Novamente</button>
             <button onClick={handleSair}>Sair</button>
         </div>
     );

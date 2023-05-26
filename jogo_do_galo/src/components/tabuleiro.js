@@ -3,14 +3,10 @@ import React, { useEffect, useState } from "react";
 function Square(props) {
 
   const pickPlayerColor = props.value === "X" ? "blue" : "red";
-  /* let buttonStyle =
-    props.value === "X"
-      ? "btn-x"
-      : props.value === "O"
-      ? "square o"
-      : "square"; */
+  const buttonClassName = props.disabled ? (pickPlayerColor ?  "square disabledB" : "square disabledR") : "square"; //class que torna o background da cor do winner
+
   return (
-    <button className="square" onClick={() => props.onClick()} disabled={props.disabled}> {/* changed */}
+    <button className={buttonClassName} onClick={() => props.onClick()} disabled={props.disabled}> {/* changed */}
       <span style={{color: pickPlayerColor, fontWeight: "bold"}}> {/* MUDANÇA PROVISORIA -> melhorar a maneira de colorir o conteudo sem ser in-line Style */}
         {props.value}
       </span>
