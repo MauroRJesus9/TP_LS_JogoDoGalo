@@ -10,13 +10,6 @@ import {
   PLAYER2
 } from "./constants/constants";
 
-/*import {
-  Tabuleiro, 
-  ControlBar,
-  FormComponent,
-  GameOverModal
-} from "./components";*/
-
 function App() {
   //gamemodes
 
