@@ -78,27 +78,6 @@ function App() {
     });
   };
 
-  /****************************** 
-   *          DEBUGGERS         *
-   ******************************/
-  //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
-  /*useEffect(() => { 
-    console.log("jogador1: " + jogador1.nome);
-    console.log("jogador2: " + jogador2.nome);
-  }, [jogador1, jogador2]);*/
-
-  /*useEffect(() => {
-    console.log("Jogador1.numOfWins:", jogador1.numOfWins);
-  }, [jogador1.numOfWins]);
-  
-  useEffect(() => {
-    console.log("Jogador2.numOfWins:", jogador2.numOfWins);
-  }, [jogador2.numOfWins]);*/
-
-  /****************************** 
-   *          DEBUGGERS         *
-   ******************************/
-
   const scramblePlayersOrder = () => {
 
     if (Math.random() < 0.5) {
@@ -175,6 +154,10 @@ function App() {
         return { ...previousValue, numOfWins: previousValue.numOfWins + 1 };
       });
     }
+  }
+
+  const handlePlayAgain = () => {
+    
   }
 
   /****************************** 
@@ -279,6 +262,28 @@ function App() {
    *       TIMER FUNCTIONS      *
    ******************************/
 
+  /****************************** 
+   *          DEBUGGERS         *
+   ******************************/
+  //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
+  /*useEffect(() => { 
+    console.log("jogador1: " + jogador1.nome);
+    console.log("jogador2: " + jogador2.nome);
+  }, [jogador1, jogador2]);*/
+
+  /*useEffect(() => {
+    console.log("Jogador1.numOfWins:", jogador1.numOfWins);
+  }, [jogador1.numOfWins]);
+  
+  useEffect(() => {
+    console.log("Jogador2.numOfWins:", jogador2.numOfWins);
+  }, [jogador2.numOfWins]);*/
+
+  /****************************** 
+   *          DEBUGGERS         *
+   ******************************/
+
+
   if (gamestart) {
     for (let i = 1; i <= 9; i++) {
       tabuleiros.push(
@@ -330,7 +335,8 @@ function App() {
           <div className="grid-container">{tabuleiros}</div>
           {isGameOver &&  <GameOverModal 
                             gameover={true} 
-                            ultimateWinner={ultimateWinner} 
+                            ultimateWinner={ultimateWinner}
+                            handlePlayAgain={handlePlayAgain} 
                             handleSair={handleGameStart}
                           />} {/* falta condiçao para quando ha um winner sem ser por tempo */}
         </>
