@@ -1,21 +1,53 @@
 #game-over-modal{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     top: 250px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 150px 300px;
     background-color: orange;
     border-radius: 20px;
+
+    /*bloco de codigo que centra os items vertical e horizontalmente*/
+    /*display: grid;
+    place-items: center;*/
+    /*bloco de codigo que centra os items vertical e horizontalmente*/
 }
 
 #message{
+    font-size: 50px;
     font-weight: bolder;
     color: black;
-    font-style: normal;
+    padding: 50px 300px 150px 300px;
 }
 
 #hidden{
     display: none;
+}
+
+#playAgainBtn{
+    margin-left: auto;
+    margin-right: 3em;
+    padding: 15px;
+    border: none;
+    background-color: rgb(152, 151, 151);
+    color: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+#leaveBtn{
+    margin-left: auto;
+    margin-right: 3em;
+    padding: 15px;
+    border: none;
+    background-color: rgb(152, 151, 151);
+    color: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function Square(props) {
 
   const pickPlayerColor = props.value === "X" ? "blue" : "red";
-  const buttonClassName = props.disabled ? (pickPlayerColor ?  "square disabledB" : "square disabledR") : "square"; //class que torna o background da cor do winner
+  const buttonClassName = props.disabled ? (props.winner === props.jogador1 ?  "square disabledB" : "square disabledR") : "square"; //class que torna o background da cor do winner
 
   return (
     <button className={buttonClassName} onClick={() => props.onClick()} disabled={props.disabled}> {/* changed */}
@@ -20,6 +20,8 @@ function Board(props) {
     return <Square  value={props.squares[i]} 
                     onClick={() => props.onClick(i)}  
                     disabled={props.winner !== null}
+                    jogador1={props.jogador1} 
+                    jogador2={props.jogador2}
                     />;
   }
 
@@ -132,7 +134,7 @@ function Tabuleiro(props) {
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={handleClick} winner={winner}/>
+        <Board squares={current.squares} onClick={handleClick} winner={winner} jogador1={jogador1.name} jogador2={jogador2.name}/>
       </div>
       <div className="game-info">
         <div>{status}</div>
