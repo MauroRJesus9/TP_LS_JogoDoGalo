@@ -62,6 +62,20 @@ function App() {
     }
   }
 
+  const handlePlayAgain = () => {
+    setJogador1((previousValue) => { //reset timer e numOfWins
+      return { ...previousValue, timer: NaN, numOfWins: 0};
+    });
+    setJogador2((previousValue) => {
+      return { ...previousValue, timer: NaN, numOfWins: 0 };
+    });
+    setCurrentPlayer(PLAYER1);
+    setActiveTimer(1);
+    setIsGameOver(false);
+    setUltimateWinner("");
+    setGameStart(true);
+  }
+
   const handleCurrentPlayer = (value) => {
     setCurrentPlayer(value === PLAYER1 ? PLAYER2 : PLAYER1);
   }
@@ -154,10 +168,6 @@ function App() {
         return { ...previousValue, numOfWins: previousValue.numOfWins + 1 };
       });
     }
-  }
-
-  const handlePlayAgain = () => {
-    
   }
 
   /****************************** 
