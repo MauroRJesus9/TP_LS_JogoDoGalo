@@ -220,11 +220,11 @@ function App() {
           clearInterval(timerIdX);
         }
       }, 1000);
-    }else if (isNaN(jogador1.timer) || isGameOver) {
+    }/*else if (isNaN(jogador1.timer) || isGameOver) {
       setJogador1((previousValue) => {
         return { ...previousValue, timer: 0 };
       });
-    }else if(isNaN(jogador1.timer)){
+    }*/else if(isNaN(jogador1.timer)){
       setActiveTimer(3);
     }
 
@@ -252,11 +252,11 @@ function App() {
           clearInterval(timerIdY);
         }
       }, 1000);
-    }else if (isNaN(jogador2.timer) || isGameOver) {
+    }/*else if (isNaN(jogador2.timer) || isGameOver) {
       setJogador1((previousValue) => {
         return { ...previousValue, timer: 0 };
       });
-    }else if(isNaN(jogador2.timer)){
+    }*/else if(isNaN(jogador2.timer)){
       setActiveTimer(3);
     }
 
