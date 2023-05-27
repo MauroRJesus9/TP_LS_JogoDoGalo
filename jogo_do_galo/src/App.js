@@ -153,7 +153,14 @@ function App() {
     }else if(gameTimer === 0){
       setUltimateWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
       setIsGameOver(true);
-    }
+    }/*else if(isNaN(gameTimer)){
+      if(jogador1.numOfWins + jogador2.numOfWins === 9){ //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
+        setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
+        setIsGameOver(true);
+        console.log(ultimateWinner);
+        console.log(isGameOver);
+      }
+    }*/
   }
 
   //funcao que da update ao numero de Wins dos mini-boards(REVER PROCESSO)
@@ -220,11 +227,7 @@ function App() {
           clearInterval(timerIdX);
         }
       }, 1000);
-    }/*else if (isNaN(jogador1.timer) || isGameOver) {
-      setJogador1((previousValue) => {
-        return { ...previousValue, timer: 0 };
-      });
-    }*/else if(isNaN(jogador1.timer)){
+    }else if(isNaN(jogador1.timer)){
       setActiveTimer(3);
     }
 
@@ -252,11 +255,7 @@ function App() {
           clearInterval(timerIdY);
         }
       }, 1000);
-    }/*else if (isNaN(jogador2.timer) || isGameOver) {
-      setJogador1((previousValue) => {
-        return { ...previousValue, timer: 0 };
-      });
-    }*/else if(isNaN(jogador2.timer)){
+    }else if(isNaN(jogador2.timer)){
       setActiveTimer(3);
     }
 
@@ -267,6 +266,15 @@ function App() {
     };
     
   }, [jogador2.timer, currentPlayer, gamestart]);
+
+  //para quando o timer for NaN
+  useEffect(() => {
+    if(isNaN(jogador1.timer) && isNaN(jogador2.timer) && jogador1.numOfWins + jogador2.numOfWins === 9){
+     //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
+      setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
+      setIsGameOver(true);
+    }
+  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins]);
 
   /****************************** 
    *       TIMER FUNCTIONS      *
