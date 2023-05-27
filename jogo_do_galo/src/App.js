@@ -153,14 +153,7 @@ function App() {
     }else if(gameTimer === 0){
       setUltimateWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
       setIsGameOver(true);
-    }/*else if(isNaN(gameTimer)){
-      if(jogador1.numOfWins + jogador2.numOfWins === 9){ //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
-        setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
-        setIsGameOver(true);
-        console.log(ultimateWinner);
-        console.log(isGameOver);
-      }
-    }*/
+    }
   }
 
   //funcao que da update ao numero de Wins dos mini-boards(REVER PROCESSO)
@@ -184,6 +177,8 @@ function App() {
   /****************************** 
    *       TIMER FUNCTIONS      *
    ******************************/
+
+  /* ONE TIMER VERSION */
 
   /*useEffect(() => {
     if (gamestart) {
