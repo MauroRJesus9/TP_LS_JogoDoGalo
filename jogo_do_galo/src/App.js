@@ -22,8 +22,6 @@ function App() {
   
   //State que seleciona o timerAtivo
   const [activeTimer, setActiveTimer] = useState(1);
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [ultimateWinner, setUltimateWinner] = useState("");
 
   //State que tem o Jogador que se encontra a jogar
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
@@ -38,6 +36,9 @@ function App() {
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [ultimateWinner, setUltimateWinner] = useState("");
+  const [numOfGamesPlayed, setNumOfGamesPlayed] = useState(0);
   const tabuleiros = [];
 
   /****************************** 
@@ -146,7 +147,7 @@ function App() {
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
     if(gameTimer > 0){
-      if(jogador1.numOfWins + jogador2.numOfWins === 9){ //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
+      if(numOfGamesPlayed === 9){ //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
         setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
         setIsGameOver(true);
       }
@@ -168,6 +169,12 @@ function App() {
         return { ...previousValue, numOfWins: previousValue.numOfWins + 1 };
       });
     }
+  }
+
+  const handleNumOfGamesPlayerd = () => {
+    setNumOfGamesPlayed((previousValue) => {
+      return previousValue + 1;
+    })
   }
 
   /****************************** 
@@ -264,7 +271,7 @@ function App() {
 
   //para quando o timer for NaN
   useEffect(() => {
-    if(isNaN(jogador1.timer) && isNaN(jogador2.timer) && jogador1.numOfWins + jogador2.numOfWins === 9){
+    if(isNaN(jogador1.timer) && isNaN(jogador2.timer) && numOfGamesPlayed === 9){
      //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
       setUltimateWinner(jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name);
       setIsGameOver(true);
@@ -292,6 +299,10 @@ function App() {
     console.log("Jogador2.numOfWins:", jogador2.numOfWins);
   }, [jogador2.numOfWins]);*/
 
+  useEffect(() => {
+    console.log("numOfGamesPlayed", numOfGamesPlayed);
+  }, [numOfGamesPlayed]);
+
   /****************************** 
    *          DEBUGGERS         *
    ******************************/
@@ -307,6 +318,7 @@ function App() {
           jogador2={jogador2} 
           onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
           updateTabWins={handleNumOfWins}
+          incrementGamesPlayed={handleNumOfGamesPlayerd}
         />
       );
     }

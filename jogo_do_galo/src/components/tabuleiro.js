@@ -68,10 +68,11 @@ function calculateWinner(squares, jogador1, jogador2) {
 }
 
 function Tabuleiro(props) {
-  const { jogador1, jogador2, onSquareClick, updateTabWins } = props; //add onSquareClick como props para poder receber o jogador atual
+  const { jogador1, jogador2, onSquareClick, updateTabWins, incrementGamesPlayed } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
+  const [firstClick, setFirstClick] = useState(false);
 
   const handleClick = (i) => {
     const current = history.slice(0, stepNumber + 1);
@@ -86,6 +87,11 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[i]); //enviar ao onSquareClick o jogador atual
+
+    if (!firstClick) {
+      incrementGamesPlayed();
+      setFirstClick(true);
+    }
   };
 
   const jumpTo = (step) => {
@@ -104,6 +110,7 @@ function Tabuleiro(props) {
       updateTabWins(jogador2.name);
   }, [winner, jogador1.name, jogador2.name]);
   //duvida? porque que tive que usar o useEffect
+
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
