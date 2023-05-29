@@ -310,7 +310,22 @@ function App() {
 
 
   if (gamestart) {
-    for (let i = 1; i <= 9; i++) {
+    const arrayAux = Array(9).fill(null);
+
+    arrayAux.map((i) =>
+    tabuleiros.push(
+      <Tabuleiro
+        key={i}
+        id={i}
+        jogador1={jogador1}
+        jogador2={jogador2}
+        onSquareClick={handleCurrentPlayer}
+        updateTabWins={handleNumOfWins}
+        incrementGamesPlayed={handleNumOfGamesPlayed}
+      />
+    )
+  );
+    /*for (let i = 1; i <= 9; i++) {
       tabuleiros.push(
         <Tabuleiro 
           key={i} 
@@ -322,7 +337,7 @@ function App() {
           incrementGamesPlayed={handleNumOfGamesPlayed}
         />
       );
-    }
+    }*/
 
   }
 
