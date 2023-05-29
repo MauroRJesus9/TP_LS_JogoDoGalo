@@ -58,6 +58,7 @@ function App() {
       setActiveTimer(1);
       setIsGameOver(false);
       setUltimateWinner("");
+      setNumOfGamesPlayed(0);
     }else{
       setGameStart(true);
     }
@@ -171,7 +172,7 @@ function App() {
     }
   }
 
-  const handleNumOfGamesPlayerd = () => {
+  const handleNumOfGamesPlayed = () => {
     setNumOfGamesPlayed((previousValue) => {
       return previousValue + 1;
     })
@@ -318,7 +319,7 @@ function App() {
           jogador2={jogador2} 
           onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
           updateTabWins={handleNumOfWins}
-          incrementGamesPlayed={handleNumOfGamesPlayerd}
+          incrementGamesPlayed={handleNumOfGamesPlayed}
         />
       );
     }
