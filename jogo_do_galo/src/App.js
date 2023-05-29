@@ -49,7 +49,7 @@ function App() {
    *    HANDLERS DOS ESTADOS    *
    ******************************/
 
-  const handleGameStart = () => {
+  const handleGameStart = () => { //full states reset
     if(gamestart){
       setGameStart((previousValue) => !previousValue);
       setJogador1({name: "", timer: NaN, symbol: "X", numOfWins: 0});
@@ -185,34 +185,6 @@ function App() {
   /****************************** 
    *       TIMER FUNCTIONS      *
    ******************************/
-
-  /* ONE TIMER VERSION */
-
-  /*useEffect(() => {
-    if (gamestart) {
-      let nextTimer;
-      timerId = setInterval(() => {
-        setTimer((previousState) => {
-          nextTimer = previousState - 1;
-          return nextTimer >= 0 ? nextTimer : 0;
-        });
-        if (nextTimer === 0) {
-          setIsGameOver(true);
-          handleUltimateWinner(nextTimer); //funçao que retorna o winner consoante condições de desfecho do jogo
-          //setWinner(currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name);
-          clearInterval(timerId);
-        }
-      }, 1000);
-    }else if (isNaN(timer) || isGameOver) {
-      setTimer("--"); // Definir como "--" quando o valor for NaN
-    }
-
-    return () => {
-      if (timerId) {
-        clearInterval(timerId);
-      }
-    };
-  }, [gamestart]);*/
 
   useEffect(() => {
     if(!isNaN(jogador1.timer) && currentPlayer === PLAYER1 && gamestart && !isGameOver){
@@ -365,14 +337,6 @@ function App() {
             activeTimer={activeTimer}
             handleSair={handleGameStart}
           />
-          {/* ONE TIMER VERSION */}
-          {/*<ControlBar 
-            jogador1={jogador1}
-            jogador2={jogador2}
-            currentPlayer={currentPlayer}
-            timer={isNaN(timer) ? "--" : timer + "s"}
-            handleSair={handleGameStart}
-          />*/}
           <div className="grid-container">{tabuleiros}</div>
           {isGameOver &&  <GameOverModal 
                             gameover={true} 
