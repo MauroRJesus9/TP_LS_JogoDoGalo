@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Tabuleiro from "./components/tabuleiro";
+//import Tabuleiro from "./components/tabuleiro";
+import Tabuleiro from "./components/tabuleiro/tabuleiro.component";
 import ControlBar from "./components/control-bar/control-bar.component";
 import FormComponent from "./components/form/form.component";
 import GameOverModal from "./components/game-over-modal/game-over-modal.component";
