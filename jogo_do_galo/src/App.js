@@ -207,13 +207,13 @@ function App() {
       setActiveTimer(3);
     }
 
-    return () => {
+    return () => { //clean-up function so that everytime da run effect runs it cleans what was done before and re-renders the new result
       if(timerIdX){
         clearInterval(timerIdX);
       }
     };
     
-  }, [jogador1.timer, currentPlayer, gamestart]);
+  }, [jogador1.timer, currentPlayer, gamestart]); //sao necessarias as dependecias por causa do if, se o valor de um state estiver a ser alterado atraves do previousValue nao necessita da dependencia
 
   useEffect(() => {
     if(!isNaN(jogador2.timer) && currentPlayer === PLAYER2 && gamestart && !isGameOver){
