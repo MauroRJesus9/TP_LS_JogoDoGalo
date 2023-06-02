@@ -1,7 +1,6 @@
 import React from "react";
-import "../../App.css";
 
-export default function Square(props) {
+export default function Square2(props) {
   const pickPlayerColor = props.value === "X" ? "blue" : "red";
   //const buttonClassName = props.disabled ? (props.winner === props.jogador1 ?  "square disabledB" : "square disabledR") : "square"; //class que torna o background da cor do winner
   const buttonClassName = props.disabled

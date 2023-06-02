@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import "../form/form.css" 
+import "../form/form.css";
 import tabIMG from "../../imgs/tab.jpeg";
 import pcICO from "../../imgs/pc.png";
 import handICO from "../../imgs/handshake.png";
 
 export default function FormComponent(props) {
-  const { handleJogador1MudarNome, handleJogador2MudarNome, handleSubmit, jogador1, jogador2, handleTemporizador } = props;
+  const {
+    handleJogador1MudarNome,
+    handleJogador2MudarNome,
+    handleSubmit,
+    jogador1,
+    jogador2,
+    handleTemporizador,
+  } = props;
   const [formAtivo, setFormAtivo] = useState(false);
 
   //ALTERAR
@@ -31,11 +38,7 @@ export default function FormComponent(props) {
         <h2>Escolher modo de jogo</h2>
       </div>
       <div className="gamemodes">
-        <img
-          src={tabIMG}
-          id="tabuleiro"
-          alt="tabuleiro"
-        />
+        <img src={tabIMG} id="tabuleiro" alt="tabuleiro" />
         <div className="btn-container">
           <button
             className="btn"
@@ -43,11 +46,7 @@ export default function FormComponent(props) {
             onClick={escolheComputador}
           >
             <div className="btn-content">
-              <img
-              src={pcICO}
-                alt="Imagem Computador"
-                className="btn-img"
-              />
+              <img src={pcICO} alt="Imagem Computador" className="btn-img" />
               <div className="btn-text">
                 <span className="btn-title">Computador</span>
                 <span className="btn-subtitle">Desafia o computador</span>
@@ -60,11 +59,7 @@ export default function FormComponent(props) {
             onClick={escolhe2Jogadores}
           >
             <div className="btn-content">
-              <img
-                src={handICO}
-                alt="Imagem Computador"
-                className="btn-img"
-              />
+              <img src={handICO} alt="Imagem Computador" className="btn-img" />
               <div className="btn-text">
                 <span className="btn-title">2 Jogadores</span>
                 <span className="btn-subtitle">Desafia um amigo</span>
@@ -117,13 +112,16 @@ export default function FormComponent(props) {
                 <label id="mini-tabuleiro">
                   Tabuleiro
                   <select
-                    defaultValue=""
+                    defaultValue="livre"
                     name="temporizador"
                     id="tabuleiro-select"
                     disabled={!formAtivo}
+                    onChange={(e) => props.setGamemode(e.target.value)}
                   >
-                    <option value="">Livre</option>
-                    <option value="">Adversário escolhe mini tabuleiro</option>
+                    <option value="livre">Livre</option>
+                    <option value="escolhe">
+                      Adversário escolhe mini tabuleiro
+                    </option>
                   </select>
                 </label>
               </div>
@@ -145,6 +143,6 @@ export default function FormComponent(props) {
       </div>
     </>
   );
-};
+}
 
 //export default FormComponent;

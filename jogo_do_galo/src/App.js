@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 //import Tabuleiro from "./components/tabuleiro";
 import Tabuleiro from "./components/tabuleiro/tabuleiro.component";
+import TabuleiroModo2 from "./components/tabuleiro/tabuleiro.component.modo2";
 import ControlBar from "./components/control-bar/control-bar.component";
 import FormComponent from "./components/form/form.component";
 import GameOverModal from "./components/game-over-modal/game-over-modal.component";
@@ -24,6 +25,9 @@ function App() {
   //State que tem o Jogador que se encontra a jogar
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
 
+  //State que tem o Jogador que se encontra a jogar
+  const [gamemode, setGamemode] = useState("livre");
+
   //State do Jogador1
   //V2
   const [jogador1, setJogador1] = useState({
@@ -43,10 +47,12 @@ function App() {
   });
 
   //Estado do jogo (Começou ou nao começou)
+  const [clickedBoard, setClickedBoard] = useState(false);
   const [gamestart, setGameStart] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [ultimateWinner, setUltimateWinner] = useState("");
   const [numOfGamesPlayed, setNumOfGamesPlayed] = useState(0);
+  const [enabledBoards, setEnabledBoards] = useState(10);
   const tabuleiros = [];
 
   /******************************
@@ -315,7 +321,6 @@ function App() {
   /******************************
    *          DEBUGGERS         *
    ******************************/
-
   if (gamestart) {
     const arrayAux = Array(9).fill(null);
 
@@ -325,18 +330,37 @@ function App() {
         index //como estao todos preenchidos com null nao convem iterar com o index pq como o valor null e o mesmo em todos pode haver duplicacao de keys
       ) =>
         tabuleiros.push(
-          <Tabuleiro
-            key={index}
-            id={index}
-            jogador1={jogador1}
-            jogador2={jogador2}
-            currentPlayer={currentPlayer}
-            /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
+          gamemode == "livre" ? (
+            <Tabuleiro
+              key={index}
+              id={index}
+              jogador1={jogador1}
+              jogador2={jogador2}
+              currentPlayer={currentPlayer}
+              /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
         jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
-            onSquareClick={handleCurrentPlayer}
-            updateTabWins={handleNumOfWins}
-            incrementGamesPlayed={handleNumOfGamesPlayed}
-          />
+              onSquareClick={handleCurrentPlayer}
+              updateTabWins={handleNumOfWins}
+              incrementGamesPlayed={handleNumOfGamesPlayed}
+            />
+          ) : (
+            <TabuleiroModo2
+              key={index}
+              id={index}
+              jogador1={jogador1}
+              jogador2={jogador2}
+              enabledBoards={enabledBoards}
+              setEnabledBoards={setEnabledBoards}
+              currentPlayer={currentPlayer}
+              setClickedBoard={setClickedBoard}
+              clickedBoard={clickedBoard}
+              /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
+              jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
+              onSquareClick={handleCurrentPlayer}
+              updateTabWins={handleNumOfWins}
+              incrementGamesPlayed={handleNumOfGamesPlayed}
+            />
+          )
         )
     );
     /*for (let i = 1; i <= 9; i++) {
@@ -362,6 +386,7 @@ function App() {
             handleJogador1MudarNome={handleJogador1MudarNome}
             handleJogador2MudarNome={handleJogador2MudarNome}
             handleSubmit={handleSubmit}
+            setGamemode={setGamemode}
             jogador1={jogador1.name}
             jogador2={jogador2.name}
             handleTemporizador={handleTemporizador}
