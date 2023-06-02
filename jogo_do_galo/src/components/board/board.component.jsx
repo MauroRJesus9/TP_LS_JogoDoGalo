@@ -59,6 +59,7 @@ export default function Board(props) {
         </div>
       ));
     };
-  
+
+    
     return <div>{renderBoard()}</div>;
   }

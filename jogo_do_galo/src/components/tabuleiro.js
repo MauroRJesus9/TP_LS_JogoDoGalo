@@ -169,10 +169,11 @@ function Tabuleiro(props) {
                 jogador1={jogador1.name} 
                 jogador2={jogador2.name}/>
       </div>
-      <div className="game-info">
+      {/*<div className="game-info">
         <div>{status}</div>
         <ol>{moves}</ol>
       </div>
+      */}
     </div>
   );
 }
