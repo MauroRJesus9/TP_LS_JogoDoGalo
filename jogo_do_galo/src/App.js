@@ -309,7 +309,7 @@ function App() {
   }, [jogador2.numOfWins]);*/
 
   useEffect(() => {
-    console.log("numOfGamesPlayed", numOfGamesPlayed);
+    console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);
 
   /******************************
@@ -319,19 +319,25 @@ function App() {
   if (gamestart) {
     const arrayAux = Array(9).fill(null);
 
-    arrayAux.map((i) =>
-      tabuleiros.push(
-        <Tabuleiro
-          key={i}
-          id={i}
-          jogador1={jogador1}
-          jogador2={jogador2}
-          currentPlayer={currentPlayer}
-          onSquareClick={handleCurrentPlayer}
-          updateTabWins={handleNumOfWins}
-          incrementGamesPlayed={handleNumOfGamesPlayed}
-        />
-      )
+    arrayAux.map(
+      (
+        _,
+        index //como estao todos preenchidos com null nao convem iterar com o index pq como o valor null e o mesmo em todos pode haver duplicacao de keys
+      ) =>
+        tabuleiros.push(
+          <Tabuleiro
+            key={index}
+            id={index}
+            jogador1={jogador1}
+            jogador2={jogador2}
+            currentPlayer={currentPlayer}
+            /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
+        jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
+            onSquareClick={handleCurrentPlayer}
+            updateTabWins={handleNumOfWins}
+            incrementGamesPlayed={handleNumOfGamesPlayed}
+          />
+        )
     );
     /*for (let i = 1; i <= 9; i++) {
       tabuleiros.push(

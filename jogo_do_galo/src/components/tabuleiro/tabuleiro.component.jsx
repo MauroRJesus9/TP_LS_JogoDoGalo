@@ -40,15 +40,15 @@ function Tabuleiro(props) {
   const {
     jogador1,
     jogador2,
+    currentPlayer,
     onSquareClick,
     updateTabWins,
     incrementGamesPlayed,
-    currentPlayer,
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
-  const [xIsNext, setXIsNext] = useState(currentPlayer == "X" ? true : false);
-  const [firstClick, setFirstClick] = useState(false);
+  const [xIsNext, setXIsNext] = useState(true);
+  const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
 
   const handleClick = (i) => {
     const current = history.slice(0, stepNumber + 1);
@@ -57,7 +57,10 @@ function Tabuleiro(props) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = xIsNext ? "X" : "O";
+
+    //squares[i] = xIsNext ? "X" : "O";
+    squares[i] = currentPlayer;
+
     setHistory([...current, { squares }]);
     setStepNumber(current.length);
     setXIsNext(!xIsNext);
