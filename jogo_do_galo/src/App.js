@@ -284,7 +284,7 @@ function App() {
   }, [jogador2.numOfWins]);*/
 
   useEffect(() => {
-    console.log("numOfGamesPlayed", numOfGamesPlayed);
+    console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);
 
   /****************************** 
@@ -302,6 +302,9 @@ function App() {
         id={index}
         jogador1={jogador1}
         jogador2={jogador2}
+        currentPlayer={currentPlayer}
+        /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
+        jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
         onSquareClick={handleCurrentPlayer}
         updateTabWins={handleNumOfWins}
         incrementGamesPlayed={handleNumOfGamesPlayed}
