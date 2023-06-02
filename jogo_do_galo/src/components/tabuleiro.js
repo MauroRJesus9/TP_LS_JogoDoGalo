@@ -97,10 +97,17 @@ function calculateWinner(squares, jogador1, jogador2) {
 }
 
 function Tabuleiro(props) {
-  const { jogador1, jogador2, onSquareClick, updateTabWins, incrementGamesPlayed } = props; //add onSquareClick como props para poder receber o jogador atual
+  const {
+    jogador1,
+    jogador2,
+    onSquareClick,
+    updateTabWins,
+    incrementGamesPlayed,
+    currentPlayer,
+  } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
-  const [xIsNext, setXIsNext] = useState(true);
+  const [xIsNext, setXIsNext] = useState(currentPlayer == "X" ? true : false);
   const [firstClick, setFirstClick] = useState(false);
 
   const handleClick = (i) => {
@@ -133,13 +140,10 @@ function Tabuleiro(props) {
 
   //duvida? porque que tive que usar o useEffect
   useEffect(() => {
-    if(winner === jogador1.name)
-      updateTabWins(jogador1.name);
-    else if(winner === jogador2.name)
-      updateTabWins(jogador2.name);
+    if (winner === jogador1.name) updateTabWins(jogador1.name);
+    else if (winner === jogador2.name) updateTabWins(jogador2.name);
   }, [winner, jogador1.name, jogador2.name]);
   //duvida? porque que tive que usar o useEffect
-
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
@@ -149,7 +153,6 @@ function Tabuleiro(props) {
       </li>
     );
   });
-
 
   let status;
   if (winner) {
@@ -163,11 +166,13 @@ function Tabuleiro(props) {
   return (
     <div className="game">
       <div className="game-board">
-        <Board  squares={current.squares} 
-                onClick={handleClick} 
-                winner={winner} 
-                jogador1={jogador1.name} 
-                jogador2={jogador2.name}/>
+        <Board
+          squares={current.squares}
+          onClick={handleClick}
+          winner={winner}
+          jogador1={jogador1.name}
+          jogador2={jogador2.name}
+        />
       </div>
       {/*<div className="game-info">
         <div>{status}</div>
@@ -179,4 +184,3 @@ function Tabuleiro(props) {
 }
 
 export default Tabuleiro;
-
