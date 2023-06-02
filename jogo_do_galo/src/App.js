@@ -29,11 +29,21 @@ function App() {
 
   //State do Jogador1
   //V2
-  const [jogador1, setJogador1] = useState({name: "", timer: NaN, symbol: "X", numOfWins: 0});
+  const [jogador1, setJogador1] = useState(
+    {name: "",
+     timer: NaN,
+     symbol: "X",
+     numOfWins: 0
+    });
 
   //State do Jogador2
   //V2
-  const [jogador2, setJogador2] = useState({name: "", timer: NaN, symbol: "O", numOfWins: 0});
+  const [jogador2, setJogador2] = useState(
+    {name: "", 
+     timer: NaN,
+     symbol: "O",
+     numOfWins: 0
+    });
 
   //Estado do jogo (Começou ou nao começou)
   const [gamestart, setGameStart] = useState(false);
