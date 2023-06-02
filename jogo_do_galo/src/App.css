@@ -48,7 +48,7 @@
 .square {
   border: 2px solid #000000;
   background: #fff;
-  float: left;
+  float: left; 
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;

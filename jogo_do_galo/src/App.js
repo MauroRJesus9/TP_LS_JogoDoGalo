@@ -285,11 +285,11 @@ function App() {
   if (gamestart) {
     const arrayAux = Array(9).fill(null);
 
-    arrayAux.map((i) =>
+    arrayAux.map((_, index) => //como estao todos preenchidos com null nao convem iterar com o index pq como o valor null e o mesmo em todos pode haver duplicacao de keys
     tabuleiros.push(
       <Tabuleiro
-        key={i}
-        id={i}
+        key={index}
+        id={index}
         jogador1={jogador1}
         jogador2={jogador2}
         onSquareClick={handleCurrentPlayer}

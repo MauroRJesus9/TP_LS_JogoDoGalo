@@ -41,7 +41,7 @@ function Tabuleiro(props) {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
-  const [firstClick, setFirstClick] = useState(false);
+  const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
 
   const handleClick = (i) => {
     const current = history.slice(0, stepNumber + 1);
