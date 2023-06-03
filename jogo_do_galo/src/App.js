@@ -22,9 +22,6 @@ function App() {
   //State que seleciona o timerAtivo
   const [activeTimer, setActiveTimer] = useState(1);
 
-  //State que seleciona o boardAtivo para o computador jogar
-  const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
-
   //State que tem o Jogador que se encontra a jogar
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
 
@@ -59,6 +56,12 @@ function App() {
   const [numOfGamesPlayed, setNumOfGamesPlayed] = useState(0);
   const [enabledBoards, setEnabledBoards] = useState(10);
   const tabuleiros = [];
+
+  //Estados relativos ao computador jogar
+  //State que seleciona o boardAtivo para o computador jogar
+  const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
+
+  //const [allowedBoards, setAllowedBoards] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
   /******************************
    *    VARIÁVEIS E ESTADOS     *
@@ -364,13 +367,13 @@ function App() {
               id={index}
               handleActiveBoard={handleActiveBoard}
               activeBoardIndex={activeBoardIndex}
-              //isActive={index === activeBoardIndex}
               jogador1={jogador1}
               jogador2={jogador2}
               currentPlayer={currentPlayer}
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
               incrementGamesPlayed={handleNumOfGamesPlayed}
+              //isComputerPlaying={isComputerPlaying}
             />
           ) : (
             <TabuleiroModo2

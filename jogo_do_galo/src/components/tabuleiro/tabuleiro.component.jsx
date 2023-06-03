@@ -36,27 +36,17 @@ function calculateWinner(squares, jogador1, jogador2) {
   return null;
 }
 
-/*const checkPlayerIsComputer = (jogador1, jogador2, currentPlayer) => {
-
-  if(jogador1.name === "computador" && currentPlayer === jogador1.symbol)
-    return jogador1;
-  else if(jogador2.name === "computador" && currentPlayer === jogador2.symbol)
-    return jogador2;
-  else
-    return null
-}*/
-
 function Tabuleiro(props) {
   const {
     handleActiveBoard,
     activeBoardIndex,
-    //isActive,
     jogador1,
     jogador2,
     currentPlayer,
     onSquareClick,
     updateTabWins,
     incrementGamesPlayed,
+    //isComputerPlaying
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
@@ -191,7 +181,13 @@ function Tabuleiro(props) {
       <div className="game-board">
         <Board
           squares={current.squares}
-          onClick={handleClick}
+          //onClick={handleClick}
+          onClick={   //metodo impedir que o jogador click na vez do computador jogar
+            (currentPlayer === jogador1.symbol &&
+              jogador1.name === "computador") ||
+            (currentPlayer === jogador2.symbol &&
+              jogador2.name === "computador")
+            ? () => {} : handleClick}
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}
