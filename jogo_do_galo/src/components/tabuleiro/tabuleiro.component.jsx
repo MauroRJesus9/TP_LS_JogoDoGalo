@@ -48,6 +48,9 @@ function calculateWinner(squares, jogador1, jogador2) {
 
 function Tabuleiro(props) {
   const {
+    handleActiveBoard,
+    activeBoardIndex,
+    //isActive,
     jogador1,
     jogador2,
     currentPlayer,
@@ -90,8 +93,9 @@ function Tabuleiro(props) {
     setHistory([...history, { squares }]);
     setStepNumber(history.length);
     setXIsNext(!xIsNext);
-  
+
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
+    handleActiveBoard(Math.floor(Math.random() * 8) + 0);
   };
 
   useEffect(() => {
@@ -99,14 +103,16 @@ function Tabuleiro(props) {
 
     if (
       currentPlayer === jogador1.symbol &&
-      jogador1.name === "computador"
+      jogador1.name === "computador" &&
+      props.id === activeBoardIndex
     ) {
       timerId = setTimeout(() => {
         makeComputerMove();
       }, 1000);
     } else if (
       currentPlayer === jogador2.symbol &&
-      jogador2.name === "computador"
+      jogador2.name === "computador" &&
+      props.id === activeBoardIndex
     ) {
       timerId = setTimeout(() => {
         makeComputerMove();
@@ -186,7 +192,6 @@ function Tabuleiro(props) {
         <Board
           squares={current.squares}
           onClick={handleClick}
-          //onClick={checkPlayerIsComputer(jogador1, jogador2, currentPlayer) !== null ? handleClick : console.log("cu")}
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}

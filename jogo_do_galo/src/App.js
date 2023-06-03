@@ -22,6 +22,9 @@ function App() {
   //State que seleciona o timerAtivo
   const [activeTimer, setActiveTimer] = useState(1);
 
+  //State que seleciona o boardAtivo para o computador jogar
+  const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
+
   //State que tem o Jogador que se encontra a jogar
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER1);
 
@@ -214,6 +217,16 @@ function App() {
     });
   }
 
+  /*const activeBoardIndex = () => {
+    let min = Math.ceil(0);
+    let max = Math.floor(8);
+    return Math.floor(Math.random() * (max - min) + min);
+  }*/
+
+  const handleActiveBoard = (num) => {
+    setActiveBoardIndex(num);
+  }
+
   /******************************
    *    HANDLERS DOS ESTADOS    *
    ******************************/
@@ -327,10 +340,16 @@ function App() {
     console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);*/
 
+  useEffect(() => {
+    console.log("activeBoardIndex = ", activeBoardIndex);
+  }, [activeBoardIndex]);
+
   /******************************
    *          DEBUGGERS         *
    ******************************/
   if (gamestart) {
+
+    //const activeIndex = activeBoardIndex();
     const arrayAux = Array(9).fill(null);
 
     arrayAux.map(
@@ -343,6 +362,9 @@ function App() {
             <Tabuleiro
               key={index}
               id={index}
+              handleActiveBoard={handleActiveBoard}
+              activeBoardIndex={activeBoardIndex}
+              //isActive={index === activeBoardIndex}
               jogador1={jogador1}
               jogador2={jogador2}
               currentPlayer={currentPlayer}
