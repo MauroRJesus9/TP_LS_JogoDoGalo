@@ -69,10 +69,6 @@ function Tabuleiro(props) {
     const squares = [...current.squares];
   
     // Encontra as células disponíveis (vazias)
-    /*const emptyCells = squares.reduce((acc, cell, index) => {
-      if (!cell) acc.push(index);
-      return acc;
-    }, []);*/
     const emptyCells = [];
     squares.forEach((cell, index) => {
       if(cell === null)
