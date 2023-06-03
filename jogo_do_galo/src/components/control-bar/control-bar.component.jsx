@@ -17,7 +17,7 @@ export default function ControlBar(props) {
       <section id="control-bar">
         <dl
           className={
-            activeTimer === 1 || currentPlayer == "X"
+            activeTimer === 1 || currentPlayer === "X"
               ? "list-item activeB"
               : "list-item"
           }

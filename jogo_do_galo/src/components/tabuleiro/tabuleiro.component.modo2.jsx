@@ -29,7 +29,7 @@ function calculateWinner(squares, jogador1, jogador2) {
     }
   }
 
-  if (isBoardFull == true) {
+  if (isBoardFull === true) {
     return "empate";
   }
 
@@ -80,7 +80,7 @@ function TabuleiroModo2(props) {
   useEffect(() => {
     if (winner === jogador1.name) updateTabWins(jogador1.name);
     else if (winner === jogador2.name) updateTabWins(jogador2.name);
-  }, [winner, jogador1.name, jogador2.name]);
+  }, [winner, jogador1.name, jogador2.name, updateTabWins]);
 
   let status;
   if (winner) {
@@ -106,7 +106,7 @@ function TabuleiroModo2(props) {
             activeBoard={activeBoard === index}
             disabled={
               props.clickedBoard
-                ? Number(props.enabledBoards) != Number(props.id)
+                ? Number(props.enabledBoards) !== Number(props.id)
                 : false
             }
             enabledBoards={props.enabledBoards}

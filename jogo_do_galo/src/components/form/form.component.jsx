@@ -13,21 +13,23 @@ export default function FormComponent(props) {
     jogador2,
     handleTemporizador,
   } = props;
+
   const [formAtivo, setFormAtivo] = useState(false);
+  const [player2Ativo, setPlayer2Ativo] = useState(false);
 
   //ALTERAR
-  const escolhe2Jogadores = () => {
+  /*const escolhe2Jogadores = () => {
     const iJ2 = document.getElementById("inputJogador2");
     setFormAtivo(true);
     iJ2.disabled = false;
-  };
+  };*/
 
-  const escolheComputador = () => {
+  /*const escolheComputador = () => {
     const iJ2 = document.getElementById("inputJogador2");
     iJ2.disabled = true;
     iJ2.value = "";
     setFormAtivo(true);
-  };
+  };*/
   //ALTERAR
 
   return (
@@ -43,7 +45,11 @@ export default function FormComponent(props) {
           <button
             className="btn"
             id="btn-gm-computador"
-            onClick={escolheComputador}
+            //onClick={escolheComputador}
+            onClick={() => {
+              setPlayer2Ativo(false);
+              setFormAtivo(true);
+            }}
           >
             <div className="btn-content">
               <img src={pcICO} alt="Imagem Computador" className="btn-img" />
@@ -56,7 +62,11 @@ export default function FormComponent(props) {
           <button
             className="btn"
             id="btn-gm-2jogadores"
-            onClick={escolhe2Jogadores}
+            //onClick={escolhe2Jogadores}
+            onClick={() => {
+              setPlayer2Ativo(true);
+              setFormAtivo(true);
+            }}
           >
             <div className="btn-content">
               <img src={handICO} alt="Imagem Computador" className="btn-img" />
@@ -87,7 +97,7 @@ export default function FormComponent(props) {
                     type="text"
                     id="inputJogador2"
                     placeholder="Nome"
-                    disabled
+                    disabled={!player2Ativo}
                     required
                     value={jogador2}
                     onChange={handleJogador2MudarNome}
