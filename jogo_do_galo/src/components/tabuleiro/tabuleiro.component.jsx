@@ -181,8 +181,8 @@ function Tabuleiro(props) {
       <div className="game-board">
         <Board
           squares={current.squares}
-          //onClick={handleClick}
-          onClick={   //metodo impedir que o jogador click na vez do computador jogar
+          //metodo impedir que o jogador click na vez do computador jogar
+          onClick={
             (currentPlayer === jogador1.symbol &&
               jogador1.name === "computador") ||
             (currentPlayer === jogador2.symbol &&
