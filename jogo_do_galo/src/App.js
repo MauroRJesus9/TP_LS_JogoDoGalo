@@ -207,12 +207,11 @@ function App() {
     });
   };
 
-  const handleComputerPlaying = () => {
-    if(!isComputerPlaying)
-      setComputerPlaying(true);
-      setJogador2((previousValue) => {
-        return {... previousValue, name: "computador"};
-      });
+  const handleComputerPlaying = (value) => {
+    setComputerPlaying(value);
+    setJogador2((previousValue) => {
+      return {... previousValue, name: "computador"};
+    });
   }
 
   /******************************
@@ -311,10 +310,10 @@ function App() {
    *          DEBUGGERS         *
    ******************************/
   //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
-  useEffect(() => { 
+  /*useEffect(() => { 
     console.log("jogador1: " + jogador1.name);
     console.log("jogador2: " + jogador2.name);
-  }, [jogador1, jogador2]);
+  }, [jogador1, jogador2]);*/
 
   /*useEffect(() => {
     console.log("Jogador1.numOfWins:", jogador1.numOfWins);

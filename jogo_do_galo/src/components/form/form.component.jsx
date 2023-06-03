@@ -50,7 +50,7 @@ export default function FormComponent(props) {
             onClick={() => {
               setPlayer2Ativo(false);
               setFormAtivo(true);
-              handleComputerPlaying();
+              handleComputerPlaying(true);
             }}
           >
             <div className="btn-content">
