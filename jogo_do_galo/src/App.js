@@ -346,8 +346,6 @@ function App() {
               jogador1={jogador1}
               jogador2={jogador2}
               currentPlayer={currentPlayer}
-              /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
-        jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
               incrementGamesPlayed={handleNumOfGamesPlayed}
@@ -363,8 +361,6 @@ function App() {
               currentPlayer={currentPlayer}
               setClickedBoard={setClickedBoard}
               clickedBoard={clickedBoard}
-              /*jogador1={currentPlayer === PLAYER1 ? jogador2 : jogador1}
-              jogador2={currentPlayer === PLAYER2 ? jogador1 : jogador2}*/
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
               incrementGamesPlayed={handleNumOfGamesPlayed}

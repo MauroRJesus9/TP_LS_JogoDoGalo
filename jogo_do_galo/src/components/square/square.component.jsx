@@ -22,7 +22,6 @@ export default function Square(props) {
       {/* changed */}
       <span style={{ color: pickPlayerColor, fontWeight: "bold" }}>
         {" "}
-        {/* MUDANÇA PROVISORIA -> melhorar a maneira de colorir o conteudo sem ser in-line Style */}
         {props.value}
       </span>
     </button>

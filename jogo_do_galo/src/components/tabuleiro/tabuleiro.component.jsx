@@ -36,6 +36,16 @@ function calculateWinner(squares, jogador1, jogador2) {
   return null;
 }
 
+/*const checkPlayerIsComputer = (jogador1, jogador2, currentPlayer) => {
+
+  if(jogador1.name === "computador" && currentPlayer === jogador1.symbol)
+    return jogador1;
+  else if(jogador2.name === "computador" && currentPlayer === jogador2.symbol)
+    return jogador2;
+  else
+    return null
+}*/
+
 function Tabuleiro(props) {
   const {
     jogador1,
@@ -49,6 +59,69 @@ function Tabuleiro(props) {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
   const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
+
+  /*********************************
+   *       COMPUTER FUNCTIONS      *
+   *********************************/
+
+  const makeComputerMove = () => {
+    const current = history[stepNumber];
+    const squares = [...current.squares];
+  
+    // Encontra as células disponíveis (vazias)
+    const emptyCells = squares.reduce((acc, cell, index) => {
+      if (!cell) acc.push(index);
+      return acc;
+    }, []);
+  
+    if (emptyCells.length === 0) {
+      // O tabuleiro está cheio, não há mais movimentos possíveis
+      return;
+    }
+  
+    // Escolhe uma célula aleatória das células disponíveis
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const selectedCell = emptyCells[randomIndex];
+  
+    // Faz o movimento para o jogador computador
+    squares[selectedCell] = currentPlayer;
+  
+    setHistory([...history, { squares }]);
+    setStepNumber(history.length);
+    setXIsNext(!xIsNext);
+  
+    onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
+  };
+
+  useEffect(() => {
+    let timerId = null;
+
+    if (
+      currentPlayer === jogador1.symbol &&
+      jogador1.name === "computador"
+    ) {
+      timerId = setTimeout(() => {
+        makeComputerMove();
+      }, 1000);
+    } else if (
+      currentPlayer === jogador2.symbol &&
+      jogador2.name === "computador"
+    ) {
+      timerId = setTimeout(() => {
+        makeComputerMove();
+      }, 1000);
+    }
+
+    return () => {
+      // Limpa o timer quando o componente é desmontado ou quando o jogador não é mais o computador
+      clearTimeout(timerId);
+    };
+  }, [currentPlayer, jogador1, jogador2]);
+
+  /*********************************
+   *       COMPUTER FUNCTIONS      *
+   *********************************/
+
 
   const handleClick = (i) => {
     const current = history.slice(0, stepNumber + 1);
@@ -112,6 +185,7 @@ function Tabuleiro(props) {
         <Board
           squares={current.squares}
           onClick={handleClick}
+          //onClick={checkPlayerIsComputer(jogador1, jogador2, currentPlayer) !== null ? handleClick : console.log("cu")}
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}
