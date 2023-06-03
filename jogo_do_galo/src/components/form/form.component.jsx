@@ -12,6 +12,7 @@ export default function FormComponent(props) {
     jogador1,
     jogador2,
     handleTemporizador,
+    handleComputerPlaying
   } = props;
 
   const [formAtivo, setFormAtivo] = useState(false);
@@ -49,6 +50,7 @@ export default function FormComponent(props) {
             onClick={() => {
               setPlayer2Ativo(false);
               setFormAtivo(true);
+              handleComputerPlaying();
             }}
           >
             <div className="btn-content">

@@ -46,6 +46,8 @@ function App() {
     numOfWins: 0,
   });
 
+  const [isComputerPlaying, setComputerPlaying] = useState(false);
+
   //Estado do jogo (Começou ou nao começou)
   const [clickedBoard, setClickedBoard] = useState(false);
   const [gamestart, setGameStart] = useState(false);
@@ -205,6 +207,14 @@ function App() {
     });
   };
 
+  const handleComputerPlaying = () => {
+    if(!isComputerPlaying)
+      setComputerPlaying(true);
+      setJogador2((previousValue) => {
+        return {... previousValue, name: "computador"};
+      });
+  }
+
   /******************************
    *    HANDLERS DOS ESTADOS    *
    ******************************/
@@ -301,10 +311,10 @@ function App() {
    *          DEBUGGERS         *
    ******************************/
   //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
-  /*useEffect(() => { 
-    console.log("jogador1: " + jogador1.nome);
-    console.log("jogador2: " + jogador2.nome);
-  }, [jogador1, jogador2]);*/
+  useEffect(() => { 
+    console.log("jogador1: " + jogador1.name);
+    console.log("jogador2: " + jogador2.name);
+  }, [jogador1, jogador2]);
 
   /*useEffect(() => {
     console.log("Jogador1.numOfWins:", jogador1.numOfWins);
@@ -314,9 +324,9 @@ function App() {
     console.log("Jogador2.numOfWins:", jogador2.numOfWins);
   }, [jogador2.numOfWins]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("numOfGamesPlayed = ", numOfGamesPlayed);
-  }, [numOfGamesPlayed]);
+  }, [numOfGamesPlayed]);*/
 
   /******************************
    *          DEBUGGERS         *
@@ -390,6 +400,7 @@ function App() {
             jogador1={jogador1.name}
             jogador2={jogador2.name}
             handleTemporizador={handleTemporizador}
+            handleComputerPlaying={handleComputerPlaying}
           />
         </>
       ) : (
