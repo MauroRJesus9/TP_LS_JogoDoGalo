@@ -61,8 +61,6 @@ function App() {
   //State que seleciona o boardAtivo para o computador jogar
   const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
 
-  //const [allowedBoards, setAllowedBoards] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
-
   /******************************
    *    VARIÁVEIS E ESTADOS     *
    ******************************/
@@ -373,7 +371,6 @@ function App() {
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
               incrementGamesPlayed={handleNumOfGamesPlayed}
-              //isComputerPlaying={isComputerPlaying}
             />
           ) : (
             <TabuleiroModo2

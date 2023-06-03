@@ -46,7 +46,6 @@ function Tabuleiro(props) {
     onSquareClick,
     updateTabWins,
     incrementGamesPlayed,
-    //isComputerPlaying
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
@@ -151,12 +150,10 @@ function Tabuleiro(props) {
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares, jogador1.name, jogador2.name); //retorna o nome do jogador
 
-  //duvida? porque que tive que usar o useEffect
   useEffect(() => {
     if (winner === jogador1.name) updateTabWins(jogador1.name);
     else if (winner === jogador2.name) updateTabWins(jogador2.name);
   }, [winner, jogador1.name, jogador2.name]);
-  //duvida? porque que tive que usar o useEffect
 
   const moves = history.map((step, move) => {
     const desc = move ? `Go to move #${move}` : "Go to game start";
