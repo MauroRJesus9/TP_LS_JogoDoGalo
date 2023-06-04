@@ -46,11 +46,14 @@ function Tabuleiro(props) {
     onSquareClick,
     updateTabWins,
     incrementGamesPlayed,
+    allowedBoards,
+    handleAllowedBoards
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
   const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
+  const [isAllowedBoard, setIsAllowedBoard] = useState(true);
 
   /*********************************
    *       COMPUTER FUNCTIONS      *
@@ -84,7 +87,10 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
-    handleActiveBoard(Math.floor(Math.random() * 8) + 0);
+    let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
+    handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+    //console.log("Board: ", allowedBoards[indexSelectedByComputer]);
+    //console.log("allowedBoards.length: ", allowedBoards.length);
   };
 
   useEffect(() => {
@@ -93,7 +99,8 @@ function Tabuleiro(props) {
     if (
       currentPlayer === jogador1.symbol &&
       jogador1.name === "computador" &&
-      props.id === activeBoardIndex
+      props.id === activeBoardIndex &&
+      allowedBoards.includes(props.id)
     ) {
       timerId = setTimeout(() => {
         makeComputerMove();
@@ -101,10 +108,31 @@ function Tabuleiro(props) {
     } else if (
       currentPlayer === jogador2.symbol &&
       jogador2.name === "computador" &&
-      props.id === activeBoardIndex
+      props.id === activeBoardIndex &&
+      allowedBoards.includes(props.id)
     ) {
       timerId = setTimeout(() => {
         makeComputerMove();
+      }, 1000);
+    }else if(
+      currentPlayer === jogador1.symbol &&
+      jogador1.name === "computador" &&
+      props.id === activeBoardIndex &&
+      !allowedBoards.includes(props.id)
+    ){
+      timerId = setTimeout(() => {
+        let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
+        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+      }, 1000);
+    }else if(
+      currentPlayer === jogador2.symbol &&
+      jogador2.name === "computador" &&
+      props.id === activeBoardIndex &&
+      !allowedBoards.includes(props.id)
+    ){
+      timerId = setTimeout(() => {
+        let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
+        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
       }, 1000);
     }
 
@@ -114,10 +142,17 @@ function Tabuleiro(props) {
     };
   }, [currentPlayer, jogador1, jogador2]);
 
+  useEffect(() => {
+    if(
+      !isAllowedBoard
+    ){
+      handleAllowedBoards(props.id);
+    }
+  }, [isAllowedBoard]);
+
   /*********************************
    *       COMPUTER FUNCTIONS      *
    *********************************/
-
 
   const handleClick = (i) => {
     const current = history.slice(0, stepNumber + 1);
@@ -142,6 +177,11 @@ function Tabuleiro(props) {
     }
   };
 
+  const handleAllowedBoard = () => {
+    if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
+    else setIsAllowedBoard(isAllowedBoard);
+  }
+
   const jumpTo = (step) => {
     setStepNumber(step);
     setXIsNext(step % 2 === 0);
@@ -153,6 +193,7 @@ function Tabuleiro(props) {
   useEffect(() => {
     if (winner === jogador1.name) updateTabWins(jogador1.name);
     else if (winner === jogador2.name) updateTabWins(jogador2.name);
+    //console.log("winner ", winner);
   }, [winner, jogador1.name, jogador2.name]);
 
   const moves = history.map((step, move) => {
@@ -188,6 +229,7 @@ function Tabuleiro(props) {
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}
+          handleAllowedBoard={handleAllowedBoard}
         />
       </div>
       {/*<div className="game-info">

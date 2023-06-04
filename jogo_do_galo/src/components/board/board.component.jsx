@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Square from "../square/square.component";
 import "../../App.css";
 
@@ -36,9 +36,17 @@ import "../../App.css";
 }*/
 
 export default function Board(props) {
+  const { handleAllowedBoard } = props;
+
+  useEffect(() => {
+    if(props.winner !== null)
+      handleAllowedBoard();
+  }, [handleAllowedBoard]);
+
   const renderBoard = () => {
     const boardRows = [0, 1, 2];
     const boardCols = [0, 1, 2];
+
 
     return boardRows.map((row) => (
       <div key={row} className="board-row">

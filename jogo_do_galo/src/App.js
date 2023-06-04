@@ -60,6 +60,7 @@ function App() {
   //Estados relativos ao computador jogar
   //State que seleciona o boardAtivo para o computador jogar
   const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
+  const [allowedBoards, setAllowedBoards] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
   /******************************
    *    VARIÁVEIS E ESTADOS     *
@@ -218,14 +219,22 @@ function App() {
     });
   }
 
-  /*const activeBoardIndex = () => {
-    let min = Math.ceil(0);
-    let max = Math.floor(8);
-    return Math.floor(Math.random() * (max - min) + min);
-  }*/
-
   const handleActiveBoard = (num) => {
     setActiveBoardIndex(num);
+  }
+
+  const handleAllowedBoards = (num) => {
+    /*allowedBoards.forEach((board, index) => {
+      if(board === num)
+        allowedBoards.slice(index, 1);
+    });*/
+    //allowedBoards = allowedBoards.filter((board) => board !== num);
+    /*setAllowedBoards(() => {
+      let newAllowedBoards;
+      newAllowedBoards = allowedBoards.filter((board) => board !== num);
+      return allowedBoards;
+    });*/
+    setAllowedBoards(prevAllowedBoards => prevAllowedBoards.filter(board => board !== num));
   }
 
   /******************************
@@ -341,9 +350,13 @@ function App() {
     console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("activeBoardIndex = ", activeBoardIndex);
-  }, [activeBoardIndex]);
+  }, [activeBoardIndex]);*/
+
+  useEffect(() => {
+    console.log("allowedBoards = ", allowedBoards);
+  }, [allowedBoards]);
 
   /******************************
    *          DEBUGGERS         *
@@ -371,6 +384,8 @@ function App() {
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
               incrementGamesPlayed={handleNumOfGamesPlayed}
+              allowedBoards={allowedBoards}
+              handleAllowedBoards={handleAllowedBoards}
             />
           ) : (
             <TabuleiroModo2
@@ -390,19 +405,6 @@ function App() {
           )
         )
     );
-    /*for (let i = 1; i <= 9; i++) {
-      tabuleiros.push(
-        <Tabuleiro 
-          key={i} 
-          id={i} 
-          jogador1={jogador1} 
-          jogador2={jogador2} 
-          onSquareClick={handleCurrentPlayer} //adiçao do onSquareClick para receber o currentPlayer muda-lo depois no handleCurrentPlayer
-          updateTabWins={handleNumOfWins}
-          incrementGamesPlayed={handleNumOfGamesPlayed}
-        />
-      );
-    }*/
   }
 
   return (
