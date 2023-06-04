@@ -229,11 +229,6 @@ function App() {
         allowedBoards.slice(index, 1);
     });*/
     //allowedBoards = allowedBoards.filter((board) => board !== num);
-    /*setAllowedBoards(() => {
-      let newAllowedBoards;
-      newAllowedBoards = allowedBoards.filter((board) => board !== num);
-      return allowedBoards;
-    });*/
     setAllowedBoards(prevAllowedBoards => prevAllowedBoards.filter(board => board !== num));
   }
 
@@ -354,9 +349,9 @@ function App() {
     console.log("activeBoardIndex = ", activeBoardIndex);
   }, [activeBoardIndex]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("allowedBoards = ", allowedBoards);
-  }, [allowedBoards]);
+  }, [allowedBoards]);*/
 
   /******************************
    *          DEBUGGERS         *

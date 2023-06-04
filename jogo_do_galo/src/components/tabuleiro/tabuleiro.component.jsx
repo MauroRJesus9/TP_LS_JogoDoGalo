@@ -89,8 +89,6 @@ function Tabuleiro(props) {
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
     let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
     handleActiveBoard(allowedBoards[indexSelectedByComputer]);
-    //console.log("Board: ", allowedBoards[indexSelectedByComputer]);
-    //console.log("allowedBoards.length: ", allowedBoards.length);
   };
 
   useEffect(() => {
@@ -191,9 +189,19 @@ function Tabuleiro(props) {
   const winner = calculateWinner(current.squares, jogador1.name, jogador2.name); //retorna o nome do jogador
 
   useEffect(() => {
-    if (winner === jogador1.name) updateTabWins(jogador1.name);
-    else if (winner === jogador2.name) updateTabWins(jogador2.name);
-    //console.log("winner ", winner);
+    if (winner === jogador1.name) {
+      updateTabWins(jogador1.name);
+      handleAllowedBoard();
+      //if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
+      //else setIsAllowedBoard(isAllowedBoard);
+    }
+    else if (winner === jogador2.name){
+      updateTabWins(jogador2.name);
+      handleAllowedBoard();
+      //if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
+      //else setIsAllowedBoard(isAllowedBoard);
+    } 
+    console.log("winner ", winner);
   }, [winner, jogador1.name, jogador2.name]);
 
   const moves = history.map((step, move) => {
@@ -229,7 +237,7 @@ function Tabuleiro(props) {
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}
-          handleAllowedBoard={handleAllowedBoard}
+          //handleAllowedBoard={handleAllowedBoard}
         />
       </div>
       {/*<div className="game-info">
