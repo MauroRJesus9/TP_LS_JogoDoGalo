@@ -60,8 +60,11 @@ function Tabuleiro(props) {
    *********************************/
 
   const makeComputerMove = () => {
-    const current = history[stepNumber];
-    const squares = [...current.squares];
+    /*const current = history[stepNumber];
+    const squares = [...current.squares];*/
+    const current = history.slice(0, stepNumber + 1);
+    const currentBoard = current[current.length - 1];
+    const squares = [...currentBoard.squares];
   
     // Encontra as células disponíveis (vazias)
     const emptyCells = [];
@@ -78,6 +81,9 @@ function Tabuleiro(props) {
     // Escolhe uma célula aleatória das células disponíveis
     const randomIndex = Math.floor(Math.random() * emptyCells.length);
     const selectedCell = emptyCells[randomIndex];
+    if (calculateWinner(squares) || squares[selectedCell]) {
+      return;
+    }
   
     // Faz o movimento para o jogador computador
     squares[selectedCell] = currentPlayer;
@@ -176,9 +182,8 @@ function Tabuleiro(props) {
   };
 
   const handleAllowedBoard = () => {
-    if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
-    else setIsAllowedBoard(isAllowedBoard);
-  }
+    setIsAllowedBoard(!isAllowedBoard);
+  };
 
   const jumpTo = (step) => {
     setStepNumber(step);

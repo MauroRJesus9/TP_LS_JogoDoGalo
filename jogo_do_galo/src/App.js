@@ -60,7 +60,7 @@ function App() {
   //Estados relativos ao computador jogar
   //State que seleciona o boardAtivo para o computador jogar
   const [activeBoardIndex, setActiveBoardIndex] = useState(Math.floor(Math.random() * 8) + 0);
-  const [allowedBoards, setAllowedBoards] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  const [allowedBoards, setAllowedBoards] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8]); //COMPUTADOR
 
   /******************************
    *    VARIÁVEIS E ESTADOS     *
@@ -81,6 +81,8 @@ function App() {
       setIsGameOver(false);
       setUltimateWinner("");
       setNumOfGamesPlayed(0);
+      setActiveBoardIndex(Math.floor(Math.random() * 8) + 0);
+      setAllowedBoards([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     } else {
       setGameStart(true);
     }
@@ -224,11 +226,6 @@ function App() {
   }
 
   const handleAllowedBoards = (num) => {
-    /*allowedBoards.forEach((board, index) => {
-      if(board === num)
-        allowedBoards.slice(index, 1);
-    });*/
-    //allowedBoards = allowedBoards.filter((board) => board !== num);
     setAllowedBoards(prevAllowedBoards => prevAllowedBoards.filter(board => board !== num));
   }
 
