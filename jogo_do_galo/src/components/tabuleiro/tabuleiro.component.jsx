@@ -93,8 +93,8 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
-    let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
-    handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+    let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
+    handleActiveBoard(indexSelectedByComputer);
   };
 
   useEffect(() => {
@@ -125,8 +125,11 @@ function Tabuleiro(props) {
       !allowedBoards.includes(props.id)
     ){
       timerId = setTimeout(() => {
-        let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
+        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
         handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+
+        console.log("Board not allowed: ", props.id);
+        //handleActiveBoard(props.id);
       }, 1000);
     }else if(
       currentPlayer === jogador2.symbol &&
@@ -135,8 +138,11 @@ function Tabuleiro(props) {
       !allowedBoards.includes(props.id)
     ){
       timerId = setTimeout(() => {
-        let indexSelectedByComputer = Math.floor(Math.random() * (allowedBoards.length - 1));
+        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards);
         handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+
+        console.log("Board not allowed: ", props.id);
+       // handleActiveBoard(props.id);
       }, 1000);
     }
 
@@ -144,13 +150,15 @@ function Tabuleiro(props) {
       // Limpa o timer quando o componente é desmontado ou quando o jogador não é mais o computador
       clearTimeout(timerId);
     };
-  }, [currentPlayer, jogador1, jogador2]);
+  }, [currentPlayer, jogador1, jogador2, props.id, allowedBoards, activeBoardIndex]);
 
   useEffect(() => {
     if(
       !isAllowedBoard
     ){
       handleAllowedBoards(props.id);
+      //handleActiveBoard(props.id);
+      //console.log("Board not allowed: ", props.id);
     }
   }, [isAllowedBoard]);
 
@@ -197,14 +205,10 @@ function Tabuleiro(props) {
     if (winner === jogador1.name) {
       updateTabWins(jogador1.name);
       handleAllowedBoard();
-      //if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
-      //else setIsAllowedBoard(isAllowedBoard);
     }
     else if (winner === jogador2.name){
       updateTabWins(jogador2.name);
       handleAllowedBoard();
-      //if(isAllowedBoard) setIsAllowedBoard(!isAllowedBoard);
-      //else setIsAllowedBoard(isAllowedBoard);
     } 
     console.log("winner ", winner);
   }, [winner, jogador1.name, jogador2.name]);

@@ -222,7 +222,13 @@ function App() {
   }
 
   const handleActiveBoard = (num) => {
-    setActiveBoardIndex(num);
+    
+    if(allowedBoards.includes(num)){
+      setActiveBoardIndex(num);
+    }else{
+      let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards.length);
+      setActiveBoardIndex(allowedBoards[indexSelectedByComputer]);
+    }
   }
 
   const handleAllowedBoards = (num) => {
