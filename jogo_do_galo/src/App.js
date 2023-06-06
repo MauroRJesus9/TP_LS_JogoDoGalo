@@ -9,6 +9,56 @@ import "./App.css";
 
 import { PLAYER1, PLAYER2 } from "./constants/constants";
 
+const calculateFullBoardWinnerByLine = (jogador1, jogador2) => {
+
+  const winLines = [[0, 1, 2], [0, 3, 6], [0, 4, 8], [1, 4, 7], [2, 5, 8], [2, 4, 6], [3, 4, 5], [6, 7, 8]];
+
+  
+  //jogador1
+  for (let i = 0; i < winLines.length; i++) {
+    let countEquals = 0;
+    for (let j = 0; j < winLines[i].length; j++) {
+      if (jogador1.boardsWon.includes(winLines[i][j])) {
+        countEquals++;
+      }
+    }
+    if (countEquals === 3) {
+      return jogador1.name;
+    }
+  }
+
+  //jogador2
+  for (let i = 0; i < winLines.length; i++) {
+    let countEquals = 0;
+    for (let j = 0; j < winLines[i].length; j++) {
+      if (jogador2.boardsWon.includes(winLines[i][j])) {
+        countEquals++;
+      }
+    }
+    if (countEquals === 3) {
+      return jogador2.name;
+    }
+  }
+
+  return "empate";
+
+  /*const hasWinningCombination = (boardsWon, winLine) => {
+    return winLine.every(num => boardsWon.includes(num));
+  };
+
+  for (const winLine of winLines) {
+    if (hasWinningCombination(jogador1.boardsWon, winLine.map(num => num + 1))) {
+      return jogador1.name;
+    }
+    if (hasWinningCombination(jogador2.boardsWon, winLine.map(num => num + 1))) {
+      return jogador2.name;
+    }
+  }
+
+  return "empate";*/
+
+}
+
 function App() {
   //gamemodes
 
@@ -35,6 +85,7 @@ function App() {
     timer: NaN,
     symbol: "X",
     numOfWins: 0,
+    boardsWon: []
   });
 
   //State do Jogador2
@@ -44,6 +95,7 @@ function App() {
     timer: NaN,
     symbol: "O",
     numOfWins: 0,
+    boardsWon: []
   });
 
   const [isComputerPlaying, setComputerPlaying] = useState(false);
@@ -55,6 +107,7 @@ function App() {
   const [ultimateWinner, setUltimateWinner] = useState("");
   const [numOfGamesPlayed, setNumOfGamesPlayed] = useState(0);
   const [enabledBoards, setEnabledBoards] = useState(10);
+  const [numEmpates, setNumEmpates] = useState(0);
   const tabuleiros = [];
 
   //Estados relativos ao computador jogar
@@ -74,8 +127,8 @@ function App() {
     //full states reset
     if (gamestart) {
       setGameStart((previousValue) => !previousValue);
-      setJogador1({ name: "", timer: NaN, symbol: "X", numOfWins: 0 });
-      setJogador2({ name: "", timer: NaN, symbol: "O", numOfWins: 0 });
+      setJogador1({ name: "", timer: NaN, symbol: "X", numOfWins: 0, boardsWon: [] });
+      setJogador2({ name: "", timer: NaN, symbol: "O", numOfWins: 0, boardsWon: [] });
       setCurrentPlayer(PLAYER1);
       setActiveTimer(1);
       setIsGameOver(false);
@@ -178,7 +231,8 @@ function App() {
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
     if (gameTimer > 0) {
-      if (numOfGamesPlayed === 9) {
+      if (numOfGamesPlayed === 9  &&
+          (jogador1.numOfWins + jogador2.numOfWins + numEmpates) === 9) {
         //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
         setUltimateWinner(
           jogador1.numOfWins > jogador2.numOfWins
@@ -195,7 +249,7 @@ function App() {
     }
   };
 
-  //funcao que da update ao numero de Wins dos mini-boards(REVER PROCESSO)
+  //funcao que da update ao numero de Wins dos mini-boards
   const handleNumOfWins = (miniBoardWinner) => {
     if (miniBoardWinner === jogador1.name) {
       setJogador1((previousValue) => {
@@ -207,6 +261,24 @@ function App() {
       });
     }
   };
+
+  const handleEmpates = () => {
+    setNumEmpates((previousValue) => {
+      return previousValue + 1;
+    })
+  }
+
+  const handleBoardsWon = (miniBoardWinner, boardId) => {
+    if (miniBoardWinner === jogador1.name) {
+      setJogador1((previousValue) => {
+        return { ...previousValue, boardsWon: previousValue.boardsWon.concat(boardId) };
+      });
+    } else if (miniBoardWinner === jogador2.name) {
+      setJogador2((previousValue) => {
+        return { ...previousValue, boardsWon: previousValue.boardsWon.concat(boardId) };
+      });
+    }
+  }
 
   const handleNumOfGamesPlayed = () => {
     setNumOfGamesPlayed((previousValue) => {
@@ -274,7 +346,7 @@ function App() {
         clearInterval(timerIdX);
       }
     };
-  }, [jogador1.timer, currentPlayer, gamestart]); //sao necessarias as dependecias por causa do if, se o valor de um state estiver a ser alterado atraves do previousValue nao necessita da dependencia
+  }, [jogador1.timer, currentPlayer, gamestart, ultimateWinner, isGameOver]); //sao necessarias as dependecias por causa do if, se o valor de um state estiver a ser alterado atraves do previousValue nao necessita da dependencia
 
   useEffect(() => {
     if (
@@ -306,22 +378,40 @@ function App() {
         clearInterval(timerIdY);
       }
     };
-  }, [jogador2.timer, currentPlayer, gamestart]);
+  }, [jogador2.timer, currentPlayer, gamestart, ultimateWinner, isGameOver]);
 
   //para quando o timer for NaN
   useEffect(() => {
     if (
       isNaN(jogador1.timer) &&
       isNaN(jogador2.timer) &&
-      numOfGamesPlayed === 9
+      gamestart &&
+      !isGameOver
+      //numOfGamesPlayed === 9
     ) {
       //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
-      setUltimateWinner(
-        jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name
-      );
+      if(numOfGamesPlayed === 9 &&
+        (jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9)){
+          setUltimateWinner(
+            jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name
+          );
+          setIsGameOver(true);
+        }
+    }
+  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins, ultimateWinner, isGameOver, gamestart]);
+
+  useEffect(() => {
+    let winner;
+    winner = calculateFullBoardWinnerByLine(jogador1, jogador2);
+
+    console.log("winner:", winner);
+
+    if(winner !== "empate"){
+      setUltimateWinner(winner);
       setIsGameOver(true);
     }
-  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins]);
+
+  }, [jogador1, jogador2]);
 
   /******************************
    *       TIMER FUNCTIONS      *
@@ -356,6 +446,13 @@ function App() {
     console.log("allowedBoards = ", allowedBoards);
   }, [allowedBoards]);*/
 
+  useEffect(() => {
+    console.log("jogador1.boardsWon = ", jogador1.boardsWon);
+  }, [jogador1.boardsWon]);
+
+  useEffect(() => {
+    console.log("jogador2.boardsWon = ", jogador2.boardsWon);
+  }, [jogador2.boardsWon]);
   /******************************
    *          DEBUGGERS         *
    ******************************/
@@ -381,9 +478,11 @@ function App() {
               currentPlayer={currentPlayer}
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
+              updateEmpates={handleEmpates}
               incrementGamesPlayed={handleNumOfGamesPlayed}
               allowedBoards={allowedBoards}
               handleAllowedBoards={handleAllowedBoards}
+              handleBoardsWon={handleBoardsWon}
             />
           ) : (
             <TabuleiroModo2

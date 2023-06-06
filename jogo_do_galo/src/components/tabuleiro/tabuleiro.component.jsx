@@ -45,14 +45,16 @@ function Tabuleiro(props) {
     currentPlayer,
     onSquareClick,
     updateTabWins,
+    updateEmpates,
     incrementGamesPlayed,
     allowedBoards,
-    handleAllowedBoards
+    handleAllowedBoards,
+    handleBoardsWon
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
-  const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
+ // const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
   const [isAllowedBoard, setIsAllowedBoard] = useState(true);
 
   /*********************************
@@ -93,6 +95,11 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
+    /*if (!firstClick) {
+      incrementGamesPlayed();
+      setFirstClick(true);
+    }*/
+    
     let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
     handleActiveBoard(indexSelectedByComputer);
   };
@@ -155,8 +162,6 @@ function Tabuleiro(props) {
       !isAllowedBoard
     ){
       handleAllowedBoards(props.id);
-      //handleActiveBoard(props.id);
-      //console.log("Board not allowed: ", props.id);
     }
   }, [isAllowedBoard]);
 
@@ -181,13 +186,13 @@ function Tabuleiro(props) {
 
     onSquareClick(squares[i]); //enviar ao onSquareClick o jogador atual
 
-    if (!firstClick) {
+    /*if (!firstClick) {
       incrementGamesPlayed();
       setFirstClick(true);
-    }
+    }*/
   };
 
-  const handleAllowedBoard = () => {
+  const handleThisBoardAllowed = () => {
     setIsAllowedBoard(!isAllowedBoard);
   };
 
@@ -202,13 +207,20 @@ function Tabuleiro(props) {
   useEffect(() => {
     if (winner === jogador1.name) {
       updateTabWins(jogador1.name);
-      handleAllowedBoard();
+      handleThisBoardAllowed();
+      handleBoardsWon(jogador1.name, props.id);
+      incrementGamesPlayed();
     }
     else if (winner === jogador2.name){
       updateTabWins(jogador2.name);
-      handleAllowedBoard();
-    } 
-    console.log("winner ", winner);
+      handleThisBoardAllowed();
+      handleBoardsWon(jogador2.name, props.id);
+      incrementGamesPlayed();
+    } else if (winner === "empate"){
+      updateEmpates();
+      incrementGamesPlayed();
+    }
+    //console.log("winner ", winner);
   }, [winner, jogador1.name, jogador2.name]);
 
   const moves = history.map((step, move) => {
