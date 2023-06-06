@@ -394,17 +394,6 @@ function App() {
       setIsGameOver(true);
     }
 
-    //FIX
-    /*if(jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9){
-      setUltimateWinner("Empate");
-      setIsGameOver(true);
-    }*/
-
-    if(numOfGamesPlayed === 9 && ultimateWinner === ""){
-      setUltimateWinner("Empate");
-      setIsGameOver(true);
-    }
-
   }, [jogador1, jogador2]);
 
   /******************************
@@ -541,7 +530,12 @@ function App() {
           {isGameOver && (
             <GameOverModal
               gameover={true}
-              ultimateWinner={ultimateWinner}
+              ultimateWinner={(numOfGamesPlayed === 9 && ultimateWinner === "") ? //isto aqui serve para modificar o model em caso de empate e terminar o jogo -± nao pode ser feito no useEffect porque ia se sobrepor ao handleUltimateWinner
+               () => {
+                setUltimateWinner("Empate");
+                setIsGameOver(true);
+                return "Empate";
+               } : ultimateWinner}
               handlePlayAgain={handlePlayAgain}
               handleSair={handleGameStart}
             />
