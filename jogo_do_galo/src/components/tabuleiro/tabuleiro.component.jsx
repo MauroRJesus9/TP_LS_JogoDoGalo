@@ -49,7 +49,8 @@ function Tabuleiro(props) {
     incrementGamesPlayed,
     allowedBoards,
     handleAllowedBoards,
-    handleBoardsWon
+    handleBoardsWon,
+    handleUltimateWinner
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
@@ -159,6 +160,20 @@ function Tabuleiro(props) {
       handleAllowedBoards(props.id);
     }
   }, [isAllowedBoard]);
+
+  useEffect(() => { //este useEffect serve para quando o timer do computador chegar a 0 ir para o handleUltimateWinner e apresentar o gameOverModal
+    
+    if((currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" && jogador1.timer === 0) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" && jogador2.timer === 0)){
+
+          let timer = (currentPlayer === jogador1.symbol &&
+                        jogador1.name === "computador") ? jogador1.timer : jogador2.timer;
+
+          handleUltimateWinner(timer);
+      } 
+  }, []);
 
   /*********************************
    *       COMPUTER FUNCTIONS      *

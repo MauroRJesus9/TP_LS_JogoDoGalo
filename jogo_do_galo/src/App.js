@@ -518,6 +518,7 @@ function App() {
               allowedBoards={allowedBoards}
               handleAllowedBoards={handleAllowedBoards}
               handleBoardsWon={handleBoardsWon}
+              handleUltimateWinner={handleUltimateWinner}
             />
           ) : (
             <TabuleiroModo2
