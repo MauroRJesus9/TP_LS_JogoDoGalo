@@ -394,7 +394,13 @@ function App() {
       setIsGameOver(true);
     }
 
-    if(jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9){
+    //FIX
+    /*if(jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9){
+      setUltimateWinner("Empate");
+      setIsGameOver(true);
+    }*/
+
+    if(numOfGamesPlayed === 9 && ultimateWinner === ""){
       setUltimateWinner("Empate");
       setIsGameOver(true);
     }
