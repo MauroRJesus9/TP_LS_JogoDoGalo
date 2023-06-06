@@ -42,21 +42,6 @@ const calculateFullBoardWinnerByLine = (jogador1, jogador2) => {
 
   return "empate";
 
-  /*const hasWinningCombination = (boardsWon, winLine) => {
-    return winLine.every(num => boardsWon.includes(num));
-  };
-
-  for (const winLine of winLines) {
-    if (hasWinningCombination(jogador1.boardsWon, winLine.map(num => num + 1))) {
-      return jogador1.name;
-    }
-    if (hasWinningCombination(jogador2.boardsWon, winLine.map(num => num + 1))) {
-      return jogador2.name;
-    }
-  }
-
-  return "empate";*/
-
 }
 
 function App() {
@@ -134,6 +119,7 @@ function App() {
       setIsGameOver(false);
       setUltimateWinner("");
       setNumOfGamesPlayed(0);
+      setNumEmpates(0);
       setActiveBoardIndex(Math.floor(Math.random() * 8) + 0);
       setAllowedBoards([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     } else {
@@ -395,16 +381,21 @@ function App() {
             jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name
           );
           setIsGameOver(true);
-        }
+      }
     }
   }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins, ultimateWinner, isGameOver, gamestart]);
 
   useEffect(() => {
     let winner;
     winner = calculateFullBoardWinnerByLine(jogador1, jogador2);
-    
+
     if(winner !== "empate"){
       setUltimateWinner(winner);
+      setIsGameOver(true);
+    }
+
+    if(jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9){
+      setUltimateWinner("Empate");
       setIsGameOver(true);
     }
 
@@ -421,16 +412,28 @@ function App() {
   /*useEffect(() => { 
     console.log("jogador1: " + jogador1.name);
     console.log("jogador2: " + jogador2.name);
-  }, [jogador1, jogador2]);*/
+  }, [jogador1.name, jogador2.name]);
 
-  /*useEffect(() => {
+  useEffect(() => { 
+    console.log("jogador1.timer: " + jogador1.timer);
+    console.log("jogador2.timer: " + jogador2.timer);
+  }, [jogador1.timer, jogador2.timer]);
+
+  useEffect(() => {
+    console.log("isGameOver: " + isGameOver);
+  }, [isGameOver]);*/
+
+  useEffect(() => {
     console.log("Jogador1.numOfWins:", jogador1.numOfWins);
   }, [jogador1.numOfWins]);
   
   useEffect(() => {
     console.log("Jogador2.numOfWins:", jogador2.numOfWins);
-  }, [jogador2.numOfWins]);*/
+  }, [jogador2.numOfWins]);
 
+  useEffect(() => {
+    console.log("numEmpates = ", numEmpates);
+  }, [numEmpates]);
   /*useEffect(() => {
     console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);*/
@@ -443,13 +446,13 @@ function App() {
     console.log("allowedBoards = ", allowedBoards);
   }, [allowedBoards]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("jogador1.boardsWon = ", jogador1.boardsWon);
   }, [jogador1.boardsWon]);
 
   useEffect(() => {
     console.log("jogador2.boardsWon = ", jogador2.boardsWon);
-  }, [jogador2.boardsWon]);
+  }, [jogador2.boardsWon]);*/
   /******************************
    *          DEBUGGERS         *
    ******************************/

@@ -54,7 +54,6 @@ function Tabuleiro(props) {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
- // const [firstClick, setFirstClick] = useState(false); //state para incrementar o numOfGamesPlayed
   const [isAllowedBoard, setIsAllowedBoard] = useState(true);
 
   /*********************************
@@ -62,8 +61,6 @@ function Tabuleiro(props) {
    *********************************/
 
   const makeComputerMove = () => {
-    /*const current = history[stepNumber];
-    const squares = [...current.squares];*/
     const current = history.slice(0, stepNumber + 1);
     const currentBoard = current[current.length - 1];
     const squares = [...currentBoard.squares];
@@ -95,10 +92,6 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
-    /*if (!firstClick) {
-      incrementGamesPlayed();
-      setFirstClick(true);
-    }*/
     
     let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
     handleActiveBoard(indexSelectedByComputer);
@@ -116,6 +109,10 @@ function Tabuleiro(props) {
       timerId = setTimeout(() => {
         makeComputerMove();
       }, 1000);
+
+      if(timerId === 0)
+        console.log("oi");
+
     } else if (
       currentPlayer === jogador2.symbol &&
       jogador2.name === "computador" &&
@@ -125,6 +122,10 @@ function Tabuleiro(props) {
       timerId = setTimeout(() => {
         makeComputerMove();
       }, 1000);
+
+      if(timerId === 0)
+        console.log("oi");
+
     }else if(
       currentPlayer === jogador1.symbol &&
       jogador1.name === "computador" &&
@@ -135,7 +136,7 @@ function Tabuleiro(props) {
         let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
         handleActiveBoard(allowedBoards[indexSelectedByComputer]);
 
-        console.log("Board not allowed: ", props.id);
+        //console.log("Board not allowed: ", props.id);
       }, 1000);
     }else if(
       currentPlayer === jogador2.symbol &&
@@ -147,7 +148,7 @@ function Tabuleiro(props) {
         let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards);
         handleActiveBoard(allowedBoards[indexSelectedByComputer]);
 
-        console.log("Board not allowed: ", props.id);
+       // console.log("Board not allowed: ", props.id);
       }, 1000);
     }
 
@@ -185,11 +186,6 @@ function Tabuleiro(props) {
     setXIsNext(!xIsNext);
 
     onSquareClick(squares[i]); //enviar ao onSquareClick o jogador atual
-
-    /*if (!firstClick) {
-      incrementGamesPlayed();
-      setFirstClick(true);
-    }*/
   };
 
   const handleThisBoardAllowed = () => {
@@ -209,18 +205,17 @@ function Tabuleiro(props) {
       updateTabWins(jogador1.name);
       handleThisBoardAllowed();
       handleBoardsWon(jogador1.name, props.id);
-      incrementGamesPlayed();
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
     }
     else if (winner === jogador2.name){
       updateTabWins(jogador2.name);
       handleThisBoardAllowed();
       handleBoardsWon(jogador2.name, props.id);
-      incrementGamesPlayed();
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
     } else if (winner === "empate"){
       updateEmpates();
-      incrementGamesPlayed();
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
     }
-    //console.log("winner ", winner);
   }, [winner, jogador1.name, jogador2.name]);
 
   const moves = history.map((step, move) => {
@@ -256,7 +251,6 @@ function Tabuleiro(props) {
           winner={winner}
           jogador1={jogador1.name}
           jogador2={jogador2.name}
-          //handleAllowedBoard={handleAllowedBoard}
         />
       </div>
       {/*<div className="game-info">
