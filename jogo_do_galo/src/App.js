@@ -419,7 +419,7 @@ function App() {
       setIsGameOver(true);
     }
 
-    if(numOfGamesPlayed === 9 && !isGameOver){
+    if(numOfGamesPlayed === 9 && !isGameOver){ //board full, vence o que tem mais wins
       setUltimateWinner(
         jogador1.numOfWins > jogador2.numOfWins
           ? jogador1.name
@@ -428,7 +428,7 @@ function App() {
       setIsGameOver(true);
     }
 
-    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){
+    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){ //board full e numWins iguais
       setUltimateWinner("Empate");
       setIsGameOver(true);
     }
