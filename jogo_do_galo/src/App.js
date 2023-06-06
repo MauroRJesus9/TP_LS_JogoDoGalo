@@ -428,7 +428,7 @@ function App() {
       setIsGameOver(true);
     }
 
-    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){ //board full e numWins iguais
+    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){ //board full e numWins
       setUltimateWinner("Empate");
       setIsGameOver(true);
     }
@@ -502,7 +502,7 @@ function App() {
         index //como estao todos preenchidos com null nao convem iterar com o index pq como o valor null e o mesmo em todos pode haver duplicacao de keys
       ) =>
         tabuleiros.push(
-          gamemode == "livre" ? (
+          gamemode === "livre" ? (
             <Tabuleiro
               key={index}
               id={index}

@@ -110,9 +110,6 @@ function Tabuleiro(props) {
         makeComputerMove();
       }, 1000);
 
-      if(timerId === 0)
-        console.log("oi");
-
     } else if (
       currentPlayer === jogador2.symbol &&
       jogador2.name === "computador" &&
@@ -122,9 +119,6 @@ function Tabuleiro(props) {
       timerId = setTimeout(() => {
         makeComputerMove();
       }, 1000);
-
-      if(timerId === 0)
-        console.log("oi");
 
     }else if(
       currentPlayer === jogador1.symbol &&
