@@ -387,7 +387,6 @@ function App() {
       isNaN(jogador2.timer) &&
       gamestart &&
       !isGameOver
-      //numOfGamesPlayed === 9
     ) {
       //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
       if(numOfGamesPlayed === 9 &&
@@ -403,9 +402,7 @@ function App() {
   useEffect(() => {
     let winner;
     winner = calculateFullBoardWinnerByLine(jogador1, jogador2);
-
-    console.log("winner:", winner);
-
+    
     if(winner !== "empate"){
       setUltimateWinner(winner);
       setIsGameOver(true);
