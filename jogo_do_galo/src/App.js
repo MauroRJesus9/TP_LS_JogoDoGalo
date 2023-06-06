@@ -418,7 +418,7 @@ function App() {
     console.log("isGameOver: " + isGameOver);
   }, [isGameOver]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("Jogador1.numOfWins:", jogador1.numOfWins);
   }, [jogador1.numOfWins]);
   
@@ -428,7 +428,8 @@ function App() {
 
   useEffect(() => {
     console.log("numEmpates = ", numEmpates);
-  }, [numEmpates]);
+  }, [numEmpates]);*/
+
   /*useEffect(() => {
     console.log("numOfGamesPlayed = ", numOfGamesPlayed);
   }, [numOfGamesPlayed]);*/
