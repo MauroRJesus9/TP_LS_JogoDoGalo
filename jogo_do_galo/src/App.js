@@ -40,8 +40,7 @@ const calculateFullBoardWinnerByLine = (jogador1, jogador2) => {
     }
   }
 
-  return "empate";
-
+  return null;
 }
 
 function App() {
@@ -217,7 +216,7 @@ function App() {
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
     if (gameTimer > 0) {
-      if (numOfGamesPlayed === 9  &&
+      /*if (numOfGamesPlayed === 9  &&
           (jogador1.numOfWins + jogador2.numOfWins + numEmpates) === 9) {
         //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
         setUltimateWinner(
@@ -226,7 +225,17 @@ function App() {
             : jogador2.name
         );
         setIsGameOver(true);
+      }*/
+
+      if(numOfGamesPlayed === 9 && !isGameOver){
+        setUltimateWinner(
+          jogador1.numOfWins > jogador2.numOfWins
+            ? jogador1.name
+            : jogador2.name
+        );
+        setIsGameOver(true);
       }
+
     } else if (gameTimer === 0) {
       setUltimateWinner(
         currentPlayer === jogador1.symbol ? jogador2.name : jogador1.name
@@ -367,7 +376,7 @@ function App() {
   }, [jogador2.timer, currentPlayer, gamestart, ultimateWinner, isGameOver]);
 
   //para quando o timer for NaN
-  useEffect(() => {
+  /*useEffect(() => {
     if (
       isNaN(jogador1.timer) &&
       isNaN(jogador2.timer) &&
@@ -382,15 +391,45 @@ function App() {
           );
           setIsGameOver(true);
       }
+
+      //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
+      if(numOfGamesPlayed === 9 && !isGameOver){
+        setUltimateWinner(
+          jogador1.numOfWins > jogador2.numOfWins
+            ? jogador1.name
+            : jogador2.name
+        );
+        setIsGameOver(true);
+      }
+
+      if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){
+        setUltimateWinner("Empate");
+        setIsGameOver(true);
+      }
+
     }
-  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins, ultimateWinner, isGameOver, gamestart]);
+  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins, ultimateWinner, isGameOver, gamestart]);*/
 
   useEffect(() => {
     let winner;
-    winner = calculateFullBoardWinnerByLine(jogador1, jogador2);
+    winner = calculateFullBoardWinnerByLine(jogador1, jogador2, numOfGamesPlayed, isGameOver);
 
-    if(winner !== "empate"){
+    if(winner !== null){
       setUltimateWinner(winner);
+      setIsGameOver(true);
+    }
+
+    if(numOfGamesPlayed === 9 && !isGameOver){
+      setUltimateWinner(
+        jogador1.numOfWins > jogador2.numOfWins
+          ? jogador1.name
+          : jogador2.name
+      );
+      setIsGameOver(true);
+    }
+
+    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){
+      setUltimateWinner("Empate");
       setIsGameOver(true);
     }
 
@@ -424,9 +463,9 @@ function App() {
   
   useEffect(() => {
     console.log("Jogador2.numOfWins:", jogador2.numOfWins);
-  }, [jogador2.numOfWins]);
+  }, [jogador2.numOfWins]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("numEmpates = ", numEmpates);
   }, [numEmpates]);*/
 
@@ -531,12 +570,7 @@ function App() {
           {isGameOver && (
             <GameOverModal
               gameover={true}
-              ultimateWinner={(numOfGamesPlayed === 9 && ultimateWinner === "") ? //isto aqui serve para modificar o model em caso de empate e terminar o jogo -± nao pode ser feito no useEffect porque ia se sobrepor ao handleUltimateWinner
-               () => {
-                setUltimateWinner("Empate");
-                setIsGameOver(true);
-                return "Empate";
-               } : ultimateWinner}
+              ultimateWinner={ultimateWinner}
               handlePlayAgain={handlePlayAgain}
               handleSair={handleGameStart}
             />
