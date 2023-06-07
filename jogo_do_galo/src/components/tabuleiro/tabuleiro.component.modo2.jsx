@@ -264,7 +264,7 @@ function TabuleiroModo2(props) {
             key={`board-${index}`}
             squares={step.squares}
             boardindex={props.id}
-            onClick={
+            onClick={ //ADD
               (currentPlayer === jogador1.symbol &&
                 jogador1.name === "computador") ||
               (currentPlayer === jogador2.symbol &&
