@@ -524,6 +524,8 @@ function App() {
             <TabuleiroModo2
               key={index}
               id={index}
+              handleActiveBoard={handleActiveBoard} //ADD
+              activeBoardIndex={activeBoardIndex} //ADD
               jogador1={jogador1}
               jogador2={jogador2}
               enabledBoards={enabledBoards}
@@ -533,7 +535,12 @@ function App() {
               clickedBoard={clickedBoard}
               onSquareClick={handleCurrentPlayer}
               updateTabWins={handleNumOfWins}
+              updateEmpates={handleEmpates} //ADD
               incrementGamesPlayed={handleNumOfGamesPlayed}
+              allowedBoards={allowedBoards} //ADD
+              handleAllowedBoards={handleAllowedBoards} //ADD
+              handleBoardsWon={handleBoardsWon} //ADD
+              handleUltimateWinner={handleUltimateWinner} //ADD
             />
           )
         )

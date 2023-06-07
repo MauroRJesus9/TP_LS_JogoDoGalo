@@ -38,18 +38,26 @@ function calculateWinner(squares, jogador1, jogador2) {
 
 function TabuleiroModo2(props) {
   const {
+    handleActiveBoard, //ADD
+    activeBoardIndex, //ADD
     jogador1,
     jogador2,
     currentPlayer,
     onSquareClick,
     updateTabWins,
+    updateEmpates, //ADD
     incrementGamesPlayed,
+    allowedBoards, //ADD
+    handleAllowedBoards, //ADD
+    handleBoardsWon, //ADD
+    handleUltimateWinner //ADD
   } = props;
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
-  const [firstClick, setFirstClick] = useState(false);
   const [activeBoard, setActiveBoard] = useState(null);
+  const [isAllowedBoard, setIsAllowedBoard] = useState(true); //ADD
+  const [firstClick, setFirstClick] = useState(false); //ADD
 
   const handleClick = (boardIndex, squareIndex) => {
     const current = history[stepNumber];
@@ -65,22 +73,179 @@ function TabuleiroModo2(props) {
     setXIsNext(!xIsNext);
     onSquareClick(squares[squareIndex]);
     props.setClickedBoard(true);
-    if (!firstClick) {
-      incrementGamesPlayed();
-      setFirstClick(true);
-    }
 
     setActiveBoard(squareIndex);
     props.setEnabledBoards(squareIndex);
   };
 
+  const handleThisBoardAllowed = () => { //ADD
+    setIsAllowedBoard(!isAllowedBoard);
+  };
+
+  const makeComputerMove = () => { //ADD
+    const current = history[stepNumber];
+    const squares = [...current.squares];
+    // Encontra as células disponíveis (vazias)
+    const emptyCells = [];
+    squares.forEach((cell, index) => {
+      if (cell === null) emptyCells.push(index);
+    });
+
+    if (emptyCells.length === 0) {
+      // O tabuleiro está cheio, não há mais movimentos possíveis
+      return;
+    }
+
+    // Escolhe uma célula aleatória das células disponíveis
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const selectedCell = emptyCells[randomIndex];
+    if (calculateWinner(squares) || squares[selectedCell]) {
+      return;
+    }
+
+    // Faz o movimento para o jogador computador
+    squares[selectedCell] = currentPlayer;
+    const newHistory = history.slice(0, stepNumber + 1);
+    newHistory[stepNumber] = { squares };
+    setHistory(newHistory);
+    setXIsNext(!xIsNext);
+    onSquareClick(squares[selectedCell]);
+    props.setClickedBoard(true);
+
+    setActiveBoard(selectedCell);
+    props.setEnabledBoards(selectedCell);
+
+    let indexSelectedByComputer = Math.floor(
+      Math.random() * allowedBoards.length
+    );
+    //handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+    handleActiveBoard(allowedBoards.includes(props.enabledBoards) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);
+  };
+
+  useEffect(() => { //ADD
+    let timerId = null;
+
+    if (
+      (currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" &&
+        props.id === props.enabledBoards &&
+        allowedBoards.includes(props.id)) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" &&
+        props.id === props.enabledBoards &&
+        allowedBoards.includes(props.id))
+    ) {
+      timerId = setTimeout(() => {
+        makeComputerMove();
+      }, 1000);
+    } else if (
+      (currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" &&
+        props.id === props.enabledBoards &&
+        !allowedBoards.includes(props.id)) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" &&
+        props.id === props.enabledBoards &&
+        !allowedBoards.includes(props.id))
+    ) {
+      timerId = setTimeout(() => {
+        let indexSelectedByComputer = Math.floor(
+          Math.random() * allowedBoards.length
+        );
+        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+
+        //console.log("Board not allowed: ", props.id);
+      }, 1000);
+    }
+
+    return () => {
+      // Limpa o timer quando o componente é desmontado ou quando o jogador não é mais o computador
+      clearTimeout(timerId);
+    };
+  }, [
+    currentPlayer,
+    jogador1,
+    jogador2,
+    props.id,
+    allowedBoards,
+    props.enabledBoards
+  ]);
+
+  useEffect(() => { //ADD
+    if (
+      (currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" &&
+        jogador1.timer === 0) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" &&
+        jogador2.timer === 0)
+    ) {
+      let timer = currentPlayer === jogador1.symbol ? jogador1.timer : jogador2.timer;
+
+      handleUltimateWinner(timer);
+    }
+  }, []);
+
+  useEffect(() => { //ADD
+    if(!firstClick &&
+        currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" &&
+        props.id === props.enabledBoards &&
+        !allowedBoards.includes(props.id)){
+          makeComputerMove();
+          setFirstClick(true);
+    }
+  }, [firstClick]);
+
+
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares, jogador1.name, jogador2.name);
 
-  useEffect(() => {
+  //ADD
+  useEffect(() => { //este useEffect serve para quando o timer do computador chegar a 0 ir para o handleUltimateWinner e apresentar o gameOverModal
+    
+    if((currentPlayer === jogador1.symbol &&
+        jogador1.name === "computador" && jogador1.timer === 0) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" && jogador2.timer === 0)){
+
+          let timer = (currentPlayer === jogador1.symbol &&
+                        jogador1.name === "computador") ? jogador1.timer : jogador2.timer;
+
+          handleUltimateWinner(timer);
+      } 
+  }, []);
+
+ /* useEffect(() => {
     if (winner === jogador1.name) updateTabWins(jogador1.name);
     else if (winner === jogador2.name) updateTabWins(jogador2.name);
-  }, [winner, jogador1.name, jogador2.name, updateTabWins]);
+  }, [winner, jogador1.name, jogador2.name, updateTabWins]);*/
+
+  useEffect(() => { //ADD
+    if (winner === jogador1.name) {
+      updateTabWins(jogador1.name);
+      handleThisBoardAllowed();
+      handleBoardsWon(jogador1.name, props.id);
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
+    }
+    else if (winner === jogador2.name){
+      updateTabWins(jogador2.name);
+      handleThisBoardAllowed();
+      handleBoardsWon(jogador2.name, props.id);
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
+    } else if (winner === "empate"){
+      updateEmpates();
+      incrementGamesPlayed(); //incrementar o numOfGamesPlayed
+    }
+  }, [winner, jogador1.name, jogador2.name]);
+
+  useEffect(() => { //ADD
+    if(
+      !isAllowedBoard
+    ){
+      handleAllowedBoards(props.id);
+    }
+  }, [isAllowedBoard]);
 
   let status;
   if (winner) {
@@ -99,7 +264,12 @@ function TabuleiroModo2(props) {
             key={`board-${index}`}
             squares={step.squares}
             boardindex={props.id}
-            onClick={handleClick}
+            onClick={
+              (currentPlayer === jogador1.symbol &&
+                jogador1.name === "computador") ||
+              (currentPlayer === jogador2.symbol &&
+                jogador2.name === "computador")
+            ? () => {} : handleClick}
             winner={winner}
             jogador1={jogador1.name}
             jogador2={jogador2.name}
