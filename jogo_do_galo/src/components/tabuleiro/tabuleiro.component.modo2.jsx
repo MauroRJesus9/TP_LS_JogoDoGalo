@@ -76,11 +76,16 @@ function TabuleiroModo2(props) {
 
     //setActiveBoard(squareIndex);
     //props.setEnabledBoards(squareIndex);
-    if(calculateWinner(squares) === undefined && current)
+    console.log("Board"+allowedBoards+",Square"+squareIndex)
+    if((calculateWinner(squares) === undefined || !allowedBoards.includes(squareIndex)) && current )
       {
-        let indexSelectedByComputer = Math.floor(
-        Math.random() * allowedBoards.length - 1
-        );
+        let indexSelectedByComputer = 0; 
+        do{
+          indexSelectedByComputer = Math.floor(
+            Math.random() * allowedBoards.length
+            );
+        }while(!allowedBoards.includes(indexSelectedByComputer) || indexSelectedByComputer===squareIndex)
+        
         setActiveBoard(indexSelectedByComputer);
         props.setEnabledBoards(indexSelectedByComputer);
         handleActiveBoard(indexSelectedByComputer);
@@ -94,7 +99,7 @@ function TabuleiroModo2(props) {
       handleActiveBoard(squareIndex);
     }else{
       let indexSelectedByComputer = Math.floor(
-       Math.random() * allowedBoards.length - 1
+       Math.random() * allowedBoards.length
       );
       setActiveBoard(indexSelectedByComputer);
       props.setEnabledBoards(indexSelectedByComputer);
