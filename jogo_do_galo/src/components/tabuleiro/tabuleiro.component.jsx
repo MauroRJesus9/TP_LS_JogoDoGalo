@@ -131,7 +131,7 @@ function Tabuleiro(props) {
         let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
         handleActiveBoard(indexSelectedByComputer);
 
-        //console.log("Board not allowed: ", props.id);
+        console.log("Board not allowed: ", props.id);
       }, 1000);
     }else if(
       currentPlayer === jogador2.symbol &&
@@ -143,7 +143,7 @@ function Tabuleiro(props) {
         let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
         handleActiveBoard(indexSelectedByComputer);
 
-        //console.log("Board not allowed: ", props.id);
+        console.log("Board not allowed: ", props.id);
       }, 1000);
     }
 

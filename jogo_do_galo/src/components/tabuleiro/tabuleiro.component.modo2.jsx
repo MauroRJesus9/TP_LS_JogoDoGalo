@@ -186,7 +186,7 @@ function TabuleiroModo2(props) {
         );
         handleActiveBoard(allowedBoards[indexSelectedByComputer]);
 
-        //console.log("Board not allowed: ", props.id);
+        console.log("Board not allowed: ", props.id);
       }, 1000);
     }
 
