@@ -76,15 +76,15 @@ function TabuleiroModo2(props) {
 
     //setActiveBoard(squareIndex);
     //props.setEnabledBoards(squareIndex);
-
+    
     //ADD
-    if(allowedBoards.includes(squareIndex)){
+    if(allowedBoards.includes(squareIndex) && calculateWinner(current.squares, jogador1.name, jogador2.name) == null){
       setActiveBoard(squareIndex);
       props.setEnabledBoards(squareIndex);
       handleActiveBoard(squareIndex);
     }else{
       let indexSelectedByComputer = Math.floor(
-        Math.random() * allowedBoards.length - 1
+       Math.random() * allowedBoards.length - 1
       );
       setActiveBoard(indexSelectedByComputer);
       props.setEnabledBoards(indexSelectedByComputer);
