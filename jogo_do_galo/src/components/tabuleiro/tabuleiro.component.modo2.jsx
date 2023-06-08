@@ -84,11 +84,11 @@ function TabuleiroModo2(props) {
           indexSelectedByComputer = Math.floor(
             Math.random() * allowedBoards.length
             );
-        }while(!allowedBoards.includes(indexSelectedByComputer) || indexSelectedByComputer===squareIndex)
+        }while(!allowedBoards.includes(allowedBoards[indexSelectedByComputer]) || allowedBoards[indexSelectedByComputer]===squareIndex)
         
-        setActiveBoard(indexSelectedByComputer);
-        props.setEnabledBoards(indexSelectedByComputer);
-        handleActiveBoard(indexSelectedByComputer);
+        setActiveBoard(allowedBoards[indexSelectedByComputer]);
+        props.setEnabledBoards(allowedBoards[indexSelectedByComputer]);
+        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
         return ;
     }
 
@@ -101,9 +101,9 @@ function TabuleiroModo2(props) {
       let indexSelectedByComputer = Math.floor(
        Math.random() * allowedBoards.length
       );
-      setActiveBoard(indexSelectedByComputer);
-      props.setEnabledBoards(indexSelectedByComputer);
-      handleActiveBoard(indexSelectedByComputer);
+      setActiveBoard(allowedBoards[indexSelectedByComputer]);
+      props.setEnabledBoards(allowedBoards[indexSelectedByComputer]);
+      handleActiveBoard(allowedBoards[indexSelectedByComputer]);
     }
     //ADD
     
@@ -156,9 +156,9 @@ function TabuleiroModo2(props) {
       let indexSelectedByComputer = Math.floor(
       Math.random() * allowedBoards.length - 1
       );
-      setActiveBoard(indexSelectedByComputer);
-      props.setEnabledBoards(indexSelectedByComputer);
-      handleActiveBoard(indexSelectedByComputer);
+      setActiveBoard(allowedBoards[indexSelectedByComputer]);
+      props.setEnabledBoards(allowedBoards[indexSelectedByComputer]);
+      handleActiveBoard(allowedBoards[indexSelectedByComputer]);
       return ;
   }
 
@@ -171,9 +171,9 @@ function TabuleiroModo2(props) {
       let indexSelectedByComputer = Math.floor(
         Math.random() * allowedBoards.length - 1
       );
-      setActiveBoard(indexSelectedByComputer);
-      props.setEnabledBoards(indexSelectedByComputer);
-      handleActiveBoard(indexSelectedByComputer);
+      setActiveBoard(allowedBoards[indexSelectedByComputer]);
+      props.setEnabledBoards(allowedBoards[indexSelectedByComputer]);
+      handleActiveBoard(allowedBoards[indexSelectedByComputer]);
     }
     //ADD
     
@@ -228,8 +228,7 @@ function TabuleiroModo2(props) {
     props.enabledBoards
   ]);
 
-  //useEffect necessario para quando o computador é o firstClick
-  useEffect(() => { //ADD
+  /*useEffect(() => { //ADD
     if (
       (currentPlayer === jogador1.symbol &&
         jogador1.name === "computador" &&
@@ -242,9 +241,9 @@ function TabuleiroModo2(props) {
 
       handleUltimateWinner(timer);
     }
-  }, []);
+  }, []);*/
 
-
+  //useEffect necessario para quando o computador é o firstClick
   useEffect(() => { //ADD
 
     if (!firstClick &&
