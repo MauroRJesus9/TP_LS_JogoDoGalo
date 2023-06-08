@@ -77,6 +77,7 @@ function TabuleiroModo2(props) {
     //setActiveBoard(squareIndex);
     //props.setEnabledBoards(squareIndex);
 
+    //ADD
     if(allowedBoards.includes(squareIndex)){
       setActiveBoard(squareIndex);
       props.setEnabledBoards(squareIndex);
@@ -89,6 +90,7 @@ function TabuleiroModo2(props) {
       props.setEnabledBoards(indexSelectedByComputer);
       handleActiveBoard(indexSelectedByComputer);
     }
+    //ADD
     
   };
 
@@ -135,6 +137,7 @@ function TabuleiroModo2(props) {
 
     handleActiveBoard(allowedBoards.includes(selectedCell) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);*/
 
+    //ADD
     if(allowedBoards.includes(selectedCell)){
       setActiveBoard(selectedCell);
       props.setEnabledBoards(selectedCell);
@@ -147,6 +150,7 @@ function TabuleiroModo2(props) {
       props.setEnabledBoards(indexSelectedByComputer);
       handleActiveBoard(indexSelectedByComputer);
     }
+    //ADD
     
   };
 
