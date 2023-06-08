@@ -94,7 +94,7 @@ function Tabuleiro(props) {
 
     onSquareClick(squares[selectedCell]); //manda o currentPlayer para o App.js -> ativa o timer do outro jogador e muda o jogador, entao meter o value no square n funciona com onCLick
     
-    let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
+    let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards.length);
     handleActiveBoard(indexSelectedByComputer);
   };
 
@@ -128,7 +128,7 @@ function Tabuleiro(props) {
       !allowedBoards.includes(props.id)
     ){
       timerId = setTimeout(() => {
-        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
+        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards.length);
         handleActiveBoard(indexSelectedByComputer);
 
         console.log("Board not allowed: ", props.id);
@@ -140,7 +140,7 @@ function Tabuleiro(props) {
       !allowedBoards.includes(props.id)
     ){
       timerId = setTimeout(() => {
-        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
+        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards.length);
         handleActiveBoard(indexSelectedByComputer);
 
         console.log("Board not allowed: ", props.id);
