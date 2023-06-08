@@ -171,6 +171,7 @@ function TabuleiroModo2(props) {
     props.enabledBoards
   ]);
 
+  //useEffect necessario para quando o computador é o firstClick
   useEffect(() => { //ADD
     if (
       (currentPlayer === jogador1.symbol &&
@@ -186,14 +187,21 @@ function TabuleiroModo2(props) {
     }
   }, []);
 
+
   useEffect(() => { //ADD
-    if(!firstClick &&
-        currentPlayer === jogador1.symbol &&
+
+    if (!firstClick &&
+      (currentPlayer === jogador1.symbol &&
         jogador1.name === "computador" &&
         props.id === props.enabledBoards &&
-        !allowedBoards.includes(props.id)){
-          makeComputerMove();
-          setFirstClick(true);
+        !allowedBoards.includes(props.id)) ||
+      (currentPlayer === jogador2.symbol &&
+        jogador2.name === "computador" &&
+        props.id === props.enabledBoards &&
+        !allowedBoards.includes(props.id))
+    ) {
+        makeComputerMove();
+        setFirstClick(true);
     }
   }, [firstClick]);
 
