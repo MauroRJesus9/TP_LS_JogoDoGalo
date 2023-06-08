@@ -74,8 +74,22 @@ function TabuleiroModo2(props) {
     onSquareClick(squares[squareIndex]);
     props.setClickedBoard(true);
 
-    setActiveBoard(squareIndex);
-    props.setEnabledBoards(squareIndex);
+    //setActiveBoard(squareIndex);
+    //props.setEnabledBoards(squareIndex);
+
+    if(allowedBoards.includes(squareIndex)){
+      setActiveBoard(squareIndex);
+      props.setEnabledBoards(squareIndex);
+      handleActiveBoard(squareIndex);
+    }else{
+      let indexSelectedByComputer = Math.floor(
+        Math.random() * allowedBoards.length - 1
+      );
+      setActiveBoard(indexSelectedByComputer);
+      props.setEnabledBoards(indexSelectedByComputer);
+      handleActiveBoard(indexSelectedByComputer);
+    }
+    
   };
 
   const handleThisBoardAllowed = () => { //ADD
@@ -115,20 +129,25 @@ function TabuleiroModo2(props) {
     //setActiveBoard(selectedCell);
     //props.setEnabledBoards(selectedCell);
 
-    let indexSelectedByComputer = Math.floor(
+    /*let indexSelectedByComputer = Math.floor(
       Math.random() * allowedBoards.length
     );
 
-    handleActiveBoard(allowedBoards.includes(props.enabledBoards) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);
-    
-    /*handleActiveBoard(allowedBoards.includes(props.enabledBoards) ? () => {
+    handleActiveBoard(allowedBoards.includes(selectedCell) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);*/
+
+    if(allowedBoards.includes(selectedCell)){
       setActiveBoard(selectedCell);
       props.setEnabledBoards(selectedCell);
-      return props.enabledBoards;
-    } : () => {
-
-      return allowedBoards[indexSelectedByComputer];
-    });*/
+      handleActiveBoard(selectedCell);
+    }else{
+      let indexSelectedByComputer = Math.floor(
+        Math.random() * allowedBoards.length - 1
+      );
+      setActiveBoard(indexSelectedByComputer);
+      props.setEnabledBoards(indexSelectedByComputer);
+      handleActiveBoard(indexSelectedByComputer);
+    }
+    
   };
 
   useEffect(() => { //ADD

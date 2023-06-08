@@ -129,7 +129,7 @@ function Tabuleiro(props) {
     ){
       timerId = setTimeout(() => {
         let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
-        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+        handleActiveBoard(indexSelectedByComputer);
 
         //console.log("Board not allowed: ", props.id);
       }, 1000);
@@ -140,10 +140,10 @@ function Tabuleiro(props) {
       !allowedBoards.includes(props.id)
     ){
       timerId = setTimeout(() => {
-        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards);
-        handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+        let indexSelectedByComputer = Math.floor(Math.random() * allowedBoards - 1);
+        handleActiveBoard(indexSelectedByComputer);
 
-       // console.log("Board not allowed: ", props.id);
+        //console.log("Board not allowed: ", props.id);
       }, 1000);
     }
 
