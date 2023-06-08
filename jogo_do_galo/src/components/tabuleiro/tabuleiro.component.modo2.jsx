@@ -112,14 +112,23 @@ function TabuleiroModo2(props) {
     onSquareClick(squares[selectedCell]);
     props.setClickedBoard(true);
 
-    setActiveBoard(selectedCell);
-    props.setEnabledBoards(selectedCell);
+    //setActiveBoard(selectedCell);
+    //props.setEnabledBoards(selectedCell);
 
     let indexSelectedByComputer = Math.floor(
       Math.random() * allowedBoards.length
     );
-    //handleActiveBoard(allowedBoards[indexSelectedByComputer]);
+
     handleActiveBoard(allowedBoards.includes(props.enabledBoards) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);
+    
+    /*handleActiveBoard(allowedBoards.includes(props.enabledBoards) ? () => {
+      setActiveBoard(selectedCell);
+      props.setEnabledBoards(selectedCell);
+      return props.enabledBoards;
+    } : () => {
+
+      return allowedBoards[indexSelectedByComputer];
+    });*/
   };
 
   useEffect(() => { //ADD
