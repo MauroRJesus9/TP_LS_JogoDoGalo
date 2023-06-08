@@ -62,7 +62,7 @@ function TabuleiroModo2(props) {
   const handleClick = (boardIndex, squareIndex) => {
     const current = history[stepNumber];
     const squares = [...current.squares];
-    if (calculateWinner(squares) || squares[squareIndex]) {
+    if (squares[squareIndex]) {
       return;
     }
 
@@ -76,9 +76,19 @@ function TabuleiroModo2(props) {
 
     //setActiveBoard(squareIndex);
     //props.setEnabledBoards(squareIndex);
-    
+    if(calculateWinner(squares) === undefined && current)
+      {
+        let indexSelectedByComputer = Math.floor(
+        Math.random() * allowedBoards.length - 1
+        );
+        setActiveBoard(indexSelectedByComputer);
+        props.setEnabledBoards(indexSelectedByComputer);
+        handleActiveBoard(indexSelectedByComputer);
+        return ;
+    }
+
     //ADD
-    if(allowedBoards.includes(squareIndex) && calculateWinner(current.squares, jogador1.name, jogador2.name) == null){
+    if(allowedBoards.includes(squareIndex)){
       setActiveBoard(squareIndex);
       props.setEnabledBoards(squareIndex);
       handleActiveBoard(squareIndex);
@@ -136,6 +146,16 @@ function TabuleiroModo2(props) {
     );
 
     handleActiveBoard(allowedBoards.includes(selectedCell) ? props.enabledBoards : allowedBoards[indexSelectedByComputer]);*/
+    if(calculateWinner(squares) === undefined && current)
+    {
+      let indexSelectedByComputer = Math.floor(
+      Math.random() * allowedBoards.length - 1
+      );
+      setActiveBoard(indexSelectedByComputer);
+      props.setEnabledBoards(indexSelectedByComputer);
+      handleActiveBoard(indexSelectedByComputer);
+      return ;
+  }
 
     //ADD
     if(allowedBoards.includes(selectedCell)){
