@@ -115,8 +115,8 @@ function App() {
     //full states reset
     if (gamestart) {
       setGameStart((previousValue) => !previousValue);
-      setJogador1({ name: "", timer: NaN, symbol: "X", numOfWins: 0, boardsWon: [] });
-      setJogador2({ name: "", timer: NaN, symbol: "O", numOfWins: 0, boardsWon: [] });
+      setJogador1({ name: "", timer: NaN, initialTimer: NaN, symbol: "X", numOfWins: 0, boardsWon: [] });
+      setJogador2({ name: "", timer: NaN, initialTimer: NaN, symbol: "O", numOfWins: 0, boardsWon: [] });
       setCurrentPlayer(PLAYER1);
       setActiveTimer(1);
       setIsGameOver(false);
@@ -236,16 +236,6 @@ function App() {
   //Funcao que determina o UltimateWinner consoante condiçoes (se o timmer chegou ao fim, se ganhou no tabuleiro total, etc...)
   const handleUltimateWinner = (gameTimer) => {
     if (gameTimer > 0) {
-      /*if (numOfGamesPlayed === 9  &&
-          (jogador1.numOfWins + jogador2.numOfWins + numEmpates) === 9) {
-        //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
-        setUltimateWinner(
-          jogador1.numOfWins > jogador2.numOfWins
-            ? jogador1.name
-            : jogador2.name
-        );
-        setIsGameOver(true);
-      }*/
 
       if(numOfGamesPlayed === 9 && !isGameOver){
         setUltimateWinner(

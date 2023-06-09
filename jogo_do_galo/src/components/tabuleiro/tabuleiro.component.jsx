@@ -190,9 +190,12 @@ function Tabuleiro(props) {
           let timer = (currentPlayer === jogador1.symbol &&
                         jogador1.name === "computador") ? jogador1.timer : jogador2.timer;
 
+          console.log(timer);
           handleUltimateWinner(timer);
+
+        
       } 
-  }, []);
+  }, [currentPlayer, jogador1, jogador2, jogador1.timer, jogador2.timer]);
 
   /*********************************
    *       COMPUTER FUNCTIONS      *

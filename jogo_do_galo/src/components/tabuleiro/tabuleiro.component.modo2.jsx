@@ -228,21 +228,6 @@ function TabuleiroModo2(props) {
     props.enabledBoards
   ]);
 
-  /*useEffect(() => { //ADD
-    if (
-      (currentPlayer === jogador1.symbol &&
-        jogador1.name === "computador" &&
-        jogador1.timer === 0) ||
-      (currentPlayer === jogador2.symbol &&
-        jogador2.name === "computador" &&
-        jogador2.timer === 0)
-    ) {
-      let timer = currentPlayer === jogador1.symbol ? jogador1.timer : jogador2.timer;
-
-      handleUltimateWinner(timer);
-    }
-  }, []);*/
-
   //useEffect necessario para quando o computador é o firstClick
   useEffect(() => { //ADD
 
@@ -278,12 +263,8 @@ function TabuleiroModo2(props) {
 
           handleUltimateWinner(timer);
       } 
-  }, []);
+  }, [currentPlayer, jogador1, jogador2, jogador1.timer, jogador2.timer]);
 
- /* useEffect(() => {
-    if (winner === jogador1.name) updateTabWins(jogador1.name);
-    else if (winner === jogador2.name) updateTabWins(jogador2.name);
-  }, [winner, jogador1.name, jogador2.name, updateTabWins]);*/
 
   useEffect(() => { //ADD
     if (winner === jogador1.name) {
