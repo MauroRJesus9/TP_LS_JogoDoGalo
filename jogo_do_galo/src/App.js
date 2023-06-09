@@ -43,7 +43,9 @@ const calculateFullBoardWinnerByLine = (jogador1, jogador2) => {
   return null;
 }
 
+
 function App() {
+  const [resetBoard, setResetBoard] = useState(false);
   //gamemodes
 
   /******************************
@@ -67,6 +69,7 @@ function App() {
   const [jogador1, setJogador1] = useState({
     name: "",
     timer: NaN,
+    initialTimer: NaN,
     symbol: "X",
     numOfWins: 0,
     boardsWon: []
@@ -77,6 +80,7 @@ function App() {
   const [jogador2, setJogador2] = useState({
     name: "",
     timer: NaN,
+    initialTimer: NaN,
     symbol: "O",
     numOfWins: 0,
     boardsWon: []
@@ -127,19 +131,35 @@ function App() {
   };
 
   const handlePlayAgain = () => {
-    setJogador1((previousValue) => {
-      //reset timer e numOfWins
-      return { ...previousValue, timer: NaN, numOfWins: 0 };
-    });
-    setJogador2((previousValue) => {
-      return { ...previousValue, timer: NaN, numOfWins: 0 };
-    });
+    const currentPlayer1Timer = jogador1.initialTimer;
+    const currentPlayer2Timer = jogador2.initialTimer;
+  
+    setResetBoard(true);
+    setJogador1((previousValue) => ({
+      ...previousValue,
+      timer: currentPlayer1Timer,
+      numOfWins: 0,
+      boardsWon: [],
+    }));
+    setJogador2((previousValue) => ({
+      ...previousValue,
+      timer: currentPlayer2Timer,
+      numOfWins: 0,
+      boardsWon: [],
+    }));
     setCurrentPlayer(PLAYER1);
     setActiveTimer(1);
     setIsGameOver(false);
     setUltimateWinner("");
+    setNumEmpates(0);
     setGameStart(true);
   };
+
+  useEffect(() => {
+    if (resetBoard) {
+      setResetBoard(false);
+    }
+  }, [resetBoard]);
 
   const handleCurrentPlayer = (value) => {
     setCurrentPlayer(value === PLAYER1 ? PLAYER2 : PLAYER1);
@@ -184,31 +204,31 @@ function App() {
     const option = event.target.value;
     if (option === "timer30") {
       setJogador1((previousValue) => {
-        return { ...previousValue, timer: 5 };
+        return { ...previousValue, timer: 5, initialTimer: 5  };
       });
       setJogador2((previousValue) => {
-        return { ...previousValue, timer: 5 };
+        return { ...previousValue, timer: 5, initialTimer: 5  };
       });
     } else if (option === "timer1") {
       setJogador1((previousValue) => {
-        return { ...previousValue, timer: 60 };
+        return { ...previousValue, timer: 60, initialTimer: 60  };
       });
       setJogador2((previousValue) => {
-        return { ...previousValue, timer: 60 };
+        return { ...previousValue, timer: 60, initialTimer: 60  };
       });
     } else if (option === "timer2") {
       setJogador1((previousValue) => {
-        return { ...previousValue, timer: 120 };
+        return { ...previousValue, timer: 120, initialTimer: 120  };
       });
       setJogador2((previousValue) => {
-        return { ...previousValue, timer: 120 };
+        return { ...previousValue, timer: 120, initialTimer: 120  };
       });
     } else {
       setJogador1((previousValue) => {
-        return { ...previousValue, timer: NaN };
+        return { ...previousValue, timer: NaN, initialTimer: NaN  };
       });
       setJogador2((previousValue) => {
-        return { ...previousValue, timer: NaN };
+        return { ...previousValue, timer: NaN, initialTimer: NaN  };
       });
     }
   };
@@ -521,6 +541,7 @@ function App() {
               handleAllowedBoards={handleAllowedBoards}
               handleBoardsWon={handleBoardsWon}
               handleUltimateWinner={handleUltimateWinner}
+              resetBoard={resetBoard}
             />
           ) : (
             <TabuleiroModo2

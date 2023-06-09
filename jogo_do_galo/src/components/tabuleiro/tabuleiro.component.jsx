@@ -36,6 +36,10 @@ function calculateWinner(squares, jogador1, jogador2) {
   return null;
 }
 
+const initialState = {
+  squares: Array(9).fill(null),
+};
+
 function Tabuleiro(props) {
   const {
     handleActiveBoard,
@@ -57,10 +61,22 @@ function Tabuleiro(props) {
   const [xIsNext, setXIsNext] = useState(true);
   const [isAllowedBoard, setIsAllowedBoard] = useState(true);
 
+  const resetBoard = () => {
+    setHistory([initialState]);
+    setStepNumber(0);
+  };
+
+  useEffect(() => {
+    if (props.resetBoard) {
+      resetBoard();
+    }
+  }, [props.resetBoard]);
+
+
   /*********************************
    *       COMPUTER FUNCTIONS      *
    *********************************/
-
+  
   const makeComputerMove = () => {
     const current = history.slice(0, stepNumber + 1);
     const currentBoard = current[current.length - 1];
