@@ -153,6 +153,7 @@ function App() {
     setUltimateWinner("");
     setNumEmpates(0);
     setGameStart(true);
+    setNumOfGamesPlayed(0);
   };
 
   useEffect(() => {
@@ -387,41 +388,6 @@ function App() {
     };
   }, [jogador2.timer, currentPlayer, gamestart, ultimateWinner, isGameOver]);
 
-  //para quando o timer for NaN
-  /*useEffect(() => {
-    if (
-      isNaN(jogador1.timer) &&
-      isNaN(jogador2.timer) &&
-      gamestart &&
-      !isGameOver
-    ) {
-      //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
-      if(numOfGamesPlayed === 9 &&
-        (jogador1.numOfWins + jogador2.numOfWins + numEmpates === 9)){
-          setUltimateWinner(
-            jogador1.numOfWins > jogador2.numOfWins ? jogador1.name : jogador2.name
-          );
-          setIsGameOver(true);
-      }
-
-      //nao existir 3 em linha no ultimate board entao o vencedor é o que tem mais mini-board wins
-      if(numOfGamesPlayed === 9 && !isGameOver){
-        setUltimateWinner(
-          jogador1.numOfWins > jogador2.numOfWins
-            ? jogador1.name
-            : jogador2.name
-        );
-        setIsGameOver(true);
-      }
-
-      if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){
-        setUltimateWinner("Empate");
-        setIsGameOver(true);
-      }
-
-    }
-  }, [jogador1.timer, jogador2.timer, jogador1.numOfWins, jogador2.numOfWins, ultimateWinner, isGameOver, gamestart]);*/
-
   useEffect(() => {
     let winner;
     winner = calculateFullBoardWinnerByLine(jogador1, jogador2, numOfGamesPlayed, isGameOver);
@@ -451,55 +417,6 @@ function App() {
    *       TIMER FUNCTIONS      *
    ******************************/
 
-  /******************************
-   *          DEBUGGERS         *
-   ******************************/
-  //usar para verificar se os nomes estao a ser postos aleatoriamente no simbolo
-  /*useEffect(() => { 
-    console.log("jogador1: " + jogador1.name);
-    console.log("jogador2: " + jogador2.name);
-  }, [jogador1.name, jogador2.name]);
-
-  useEffect(() => { 
-    console.log("jogador1.timer: " + jogador1.timer);
-    console.log("jogador2.timer: " + jogador2.timer);
-  }, [jogador1.timer, jogador2.timer]);
-
-  useEffect(() => {
-    console.log("isGameOver: " + isGameOver);
-  }, [isGameOver]);*/
-
-  /*useEffect(() => {
-    console.log("Jogador1.numOfWins:", jogador1.numOfWins);
-  }, [jogador1.numOfWins]);
-  
-  useEffect(() => {
-    console.log("Jogador2.numOfWins:", jogador2.numOfWins);
-  }, [jogador2.numOfWins]);*/
-
-  /*useEffect(() => {
-    console.log("numEmpates = ", numEmpates);
-  }, [numEmpates]);*/
-
-  /*useEffect(() => {
-    console.log("numOfGamesPlayed = ", numOfGamesPlayed);
-  }, [numOfGamesPlayed]);*/
-
-  /*useEffect(() => {
-    console.log("activeBoardIndex = ", activeBoardIndex);
-  }, [activeBoardIndex]);*/
-
-  /*useEffect(() => {
-    console.log("allowedBoards = ", allowedBoards);
-  }, [allowedBoards]);*/
-
-  /*useEffect(() => {
-    console.log("jogador1.boardsWon = ", jogador1.boardsWon);
-  }, [jogador1.boardsWon]);
-
-  useEffect(() => {
-    console.log("jogador2.boardsWon = ", jogador2.boardsWon);
-  }, [jogador2.boardsWon]);*/
   /******************************
    *          DEBUGGERS         *
    ******************************/

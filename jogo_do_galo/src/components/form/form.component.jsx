@@ -18,20 +18,9 @@ export default function FormComponent(props) {
   const [formAtivo, setFormAtivo] = useState(false);
   const [player2Ativo, setPlayer2Ativo] = useState(false);
 
-  //ALTERAR
-  /*const escolhe2Jogadores = () => {
-    const iJ2 = document.getElementById("inputJogador2");
-    setFormAtivo(true);
-    iJ2.disabled = false;
-  };*/
-
-  /*const escolheComputador = () => {
-    const iJ2 = document.getElementById("inputJogador2");
-    iJ2.disabled = true;
-    iJ2.value = "";
-    setFormAtivo(true);
-  };*/
-  //ALTERAR
+  const resetarJogador2 = () => {
+    handleJogador2MudarNome("");
+  };
 
   return (
     <>
@@ -68,7 +57,8 @@ export default function FormComponent(props) {
             onClick={() => {
               setPlayer2Ativo(true);
               setFormAtivo(true);
-              //handleComputerPlaying(false);
+              handleComputerPlaying(false);
+              //resetarJogador2();
             }}
           >
             <div className="btn-content">

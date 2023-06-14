@@ -14,6 +14,10 @@ export default function ControlBar(props) {
 
   return (
     <>
+      <button id="leaveBtn" onClick={handleSair}>
+            SAIR
+        </button>
+      <h1>ULTIMATE TIC-TAC-TOE</h1>
       <section id="control-bar">
         <dl
           className={
@@ -30,8 +34,8 @@ export default function ControlBar(props) {
         <dl
           className={
             activeTimer === 2 || currentPlayer == "O"
-              ? "list-item activeR"
-              : "list-item"
+              ? "list-item activeR dist"
+              : "list-item dist"
           }
         >
           {" "}
@@ -39,9 +43,6 @@ export default function ControlBar(props) {
           <dt>{`${jogador2.name} ${jogador2.symbol}`}</dt>
           <dd id="playerTimer">{timerO}</dd>
         </dl>
-        <button id="leaveBtn" onClick={handleSair}>
-          SAIR
-        </button>
       </section>
     </>
   );

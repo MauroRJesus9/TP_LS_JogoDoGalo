@@ -54,7 +54,8 @@ function Tabuleiro(props) {
     allowedBoards,
     handleAllowedBoards,
     handleBoardsWon,
-    handleUltimateWinner
+    handleUltimateWinner,
+    isBoardFull,
   } = props; //add onSquareClick como props para poder receber o jogador atual
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState(0);

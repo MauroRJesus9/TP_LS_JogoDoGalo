@@ -126,7 +126,7 @@ function TabuleiroModo2(props) {
       // O tabuleiro está cheio, não há mais movimentos possíveis
       return;
     }
-
+    
     // Escolhe uma célula aleatória das células disponíveis
     const randomIndex = Math.floor(Math.random() * emptyCells.length);
     const selectedCell = emptyCells[randomIndex];
