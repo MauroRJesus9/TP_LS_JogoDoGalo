@@ -294,9 +294,16 @@ function App() {
 
   const handleComputerPlaying = (value) => {
     setComputerPlaying(value);
-    setJogador2((previousValue) => {
-      return {... previousValue, name: "computador"};
-    });
+    
+    if(value === true){
+      setJogador2((previousValue) => {
+        return {... previousValue, name: "computador"};
+      });
+    }else{
+      setJogador2((previousValue) => {
+        return {... previousValue, name: ""};
+      });
+    }
   }
 
   const handleActiveBoard = (num) => {
