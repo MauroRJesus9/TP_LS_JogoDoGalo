@@ -205,10 +205,10 @@ function App() {
     const option = event.target.value;
     if (option === "timer30") {
       setJogador1((previousValue) => {
-        return { ...previousValue, timer: 5, initialTimer: 5  };
+        return { ...previousValue, timer: 30, initialTimer: 30  };
       });
       setJogador2((previousValue) => {
-        return { ...previousValue, timer: 5, initialTimer: 5  };
+        return { ...previousValue, timer: 30, initialTimer: 30  };
       });
     } else if (option === "timer1") {
       setJogador1((previousValue) => {
@@ -402,28 +402,55 @@ function App() {
     if(winner !== null){
       setUltimateWinner(winner);
       setIsGameOver(true);
-    }
-
-    if(numOfGamesPlayed === 9 && !isGameOver){ //board full, vence o que tem mais wins
+    }else if(numOfGamesPlayed === 9 && jogador1.numOfWins !== jogador2.numOfWins){ //board full, vence o que tem mais wins
       setUltimateWinner(
         jogador1.numOfWins > jogador2.numOfWins
           ? jogador1.name
           : jogador2.name
       );
       setIsGameOver(true);
-    }
-
-    if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){ //board full e numWins
+    }else if(jogador1.numOfWins === jogador2.numOfWins && numOfGamesPlayed === 9){ //board full e numWins
       setUltimateWinner("Empate");
       setIsGameOver(true);
     }
 
-  }, [jogador1, jogador2]);
+  }, [jogador1.numOfWins, jogador2.numOfWins, numEmpates, ultimateWinner, isGameOver]);
 
   /******************************
    *       TIMER FUNCTIONS      *
    ******************************/
 
+  useEffect(() => {
+    console.log("Jogador1.name: " + jogador1.name);
+  }, [jogador1.name]);
+
+  useEffect(() => {
+    console.log("Jogador2.name: " + jogador2.name);
+  }, [jogador2.name]);
+
+  useEffect(() => {
+    console.log("Jogador1.numOfWins: " + jogador1.numOfWins);
+  }, [jogador1.numOfWins]);
+
+  useEffect(() => {
+    console.log("Jogador2.numOfWins: " + jogador2.numOfWins);
+  }, [jogador2.numOfWins]);
+
+  useEffect(() => {
+    console.log("numOfGamesPlayed: " + numOfGamesPlayed);
+  }, [numOfGamesPlayed]);
+
+  useEffect(() => {
+    console.log("numEmpates: " + numEmpates);
+  }, [numEmpates]);
+
+  useEffect(() => {
+    console.log("ultimateWinner: " + ultimateWinner);
+  }, [ultimateWinner]);
+
+  useEffect(() => {
+    console.log("isGameOver: " + isGameOver);
+  }, [isGameOver]);
   /******************************
    *          DEBUGGERS         *
    ******************************/
