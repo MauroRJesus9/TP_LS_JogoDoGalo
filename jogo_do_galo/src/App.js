@@ -420,40 +420,6 @@ function App() {
    *       TIMER FUNCTIONS      *
    ******************************/
 
-  useEffect(() => {
-    console.log("Jogador1.name: " + jogador1.name);
-  }, [jogador1.name]);
-
-  useEffect(() => {
-    console.log("Jogador2.name: " + jogador2.name);
-  }, [jogador2.name]);
-
-  useEffect(() => {
-    console.log("Jogador1.numOfWins: " + jogador1.numOfWins);
-  }, [jogador1.numOfWins]);
-
-  useEffect(() => {
-    console.log("Jogador2.numOfWins: " + jogador2.numOfWins);
-  }, [jogador2.numOfWins]);
-
-  useEffect(() => {
-    console.log("numOfGamesPlayed: " + numOfGamesPlayed);
-  }, [numOfGamesPlayed]);
-
-  useEffect(() => {
-    console.log("numEmpates: " + numEmpates);
-  }, [numEmpates]);
-
-  useEffect(() => {
-    console.log("ultimateWinner: " + ultimateWinner);
-  }, [ultimateWinner]);
-
-  useEffect(() => {
-    console.log("isGameOver: " + isGameOver);
-  }, [isGameOver]);
-  /******************************
-   *          DEBUGGERS         *
-   ******************************/
   if (gamestart) {
 
     //const activeIndex = activeBoardIndex();
